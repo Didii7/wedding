@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J & O — Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white:        #F9F6F2;
+      --ruby:             #9B111E;
+      --tourmaline:       #E75480;
+      --neutral-dark:     #2D2926;
+      --deep-ruby:        #68000D;
+      --light-tourmaline: #FFB1C2;
+      --nude:             #FFEDEB;
+      --font-heading:     'Cormorant SC', serif;
+      --font-body:        'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--neutral-dark); color: var(--off-white); font-family: var(--font-body); overflow-x: hidden; }
+
+    /* ─── NAVBAR ─────────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* transparent over hero */
+    #navbar.state-hero {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    /* glass over dark sections */
+    #navbar.state-dark {
+      background: rgba(45, 41, 38, 0.72);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* glass over light sections */
+    #navbar.state-light {
+      background: rgba(249, 246, 242, 0.78);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+    #navbar.state-light .nav-link { color: var(--neutral-dark); }
+    #navbar.state-light .nav-logo-img { filter: invert(1); }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      transition: filter 0.4s;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--light-tourmaline);
+      transform: scaleX(0);
+      transition: transform 0.25s;
+      transform-origin: left;
+    }
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--light-tourmaline);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+
+    /* hamburger — mobile */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--off-white);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    /* mobile menu */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(45, 41, 38, 0.96);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu .nav-link {
+      font-size: 15px;
+      letter-spacing: 0.22em;
+    }
+    .nav-mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none; border: none;
+      color: var(--off-white);
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(100%);
+      z-index: 0;
+    }
+
+    /* dark vignette overlay matching reference */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .hero-monogram {
+      width: 180px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      /* subtle drop shadow for legibility over photo */
+      filter: drop-shadow(0 2px 24px rgba(0,0,0,0.5)) brightness(0) invert(1);
+    }
+
+    /* RSVP button — gradient from Figma: #9B111E → #68000D */
+    .btn-rsvp {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      padding: 14px 40px;
+      background: linear-gradient(to right, var(--ruby), var(--deep-ruby));
+      border: 0.5px solid rgba(231, 84, 128, 0.5);
+      border-radius: 0;
+      cursor: pointer;
+      transition: filter 0.25s, transform 0.2s;
+      box-shadow:
+        0 4px 20px rgba(155, 17, 30, 0.35),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .btn-rsvp:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+    .btn-rsvp:active {
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner { padding: 0 20px; }
+
+      .hero-monogram { width: 130px; }
+      .btn-rsvp { padding: 12px 32px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body data-section="hero">
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
+  <nav id="navbar" class="state-hero">
+    <div class="nav-inner">
+      <!-- Logo top-left -->
+      <a href="#hero" class="nav-logo">
+        <img src="logo group.png" alt="J&amp;O" class="nav-logo-img" />
+      </a>
+
+      <!-- Desktop nav -->
+      <ul class="nav-links">
+        <li><a href="#rsvp"      class="nav-link active">RSVP</a></li>
+        <li><a href="#our-story" class="nav-link">Our Story</a></li>
+        <li><a href="#details"   class="nav-link">Details</a></li>
+        <li><a href="#asoebi"    class="nav-link">Asoebi</a></li>
+        <li><a href="#registry"  class="nav-link">Registry</a></li>
+        <li><a href="#gallery"   class="nav-link">Gallery</a></li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <button class="nav-mobile-close" id="mobileClose" aria-label="Close menu">&#215;</button>
+    <a href="#rsvp"      class="nav-link" onclick="closeMobileMenu()">RSVP</a>
+    <a href="#our-story" class="nav-link" onclick="closeMobileMenu()">Our Story</a>
+    <a href="#details"   class="nav-link" onclick="closeMobileMenu()">Details</a>
+    <a href="#asoebi"    class="nav-link" onclick="closeMobileMenu()">Asoebi</a>
+    <a href="#registry"  class="nav-link" onclick="closeMobileMenu()">Registry</a>
+    <a href="#gallery"   class="nav-link" onclick="closeMobileMenu()">Gallery</a>
+  </div>
+
+  <!-- ─── HERO ───────────────────────────────────────────────── -->
+  <section id="hero">
+    <img src="Hero section image.png" alt="" class="hero-bg" />
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <img src="logo group 2.png" alt="J&amp;O monogram" class="hero-monogram" />
+      <a href="#rsvp" class="btn-rsvp">RSVP</a>
+    </div>
+  </section>
+
+  <!-- Placeholder sections so navbar state-change can be tested -->
+  <section id="our-story"  style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Our Story — coming soon</p>
+  </section>
+  <section id="details"    style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;" data-theme="dark">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Details — coming soon</p>
+  </section>
+  <section id="asoebi"     style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Asoebi — coming soon</p>
+  </section>
+  <section id="registry"   style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;" data-theme="dark">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Registry — coming soon</p>
+  </section>
+  <section id="gallery"    style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Gallery — coming soon</p>
+  </section>
+  <section id="rsvp"       style="height:100vh;background:var(--nude);display:flex;align-items:center;justify-content:center;" data-theme="light">
+    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">RSVP — coming soon</p>
+  </section>
+
+  <script>
+    // ─── Navbar scroll state ─────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    const hero   = document.getElementById('hero');
+
+    function updateNavbar() {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+
+      if (heroBottom > 80) {
+        navbar.className = 'state-hero';
+        return;
+      }
+
+      // Detect which section is under the navbar
+      const sections = document.querySelectorAll('[data-theme]');
+      let theme = 'dark';
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 80 && rect.bottom > 80) {
+          theme = sec.dataset.theme;
+        }
+      });
+
+      navbar.className = theme === 'light' ? 'state-light' : 'state-dark';
+    }
+
+    window.addEventListener('scroll', updateNavbar, { passive: true });
+    updateNavbar();
+
+    // ─── Mobile menu ──────────────────────────────────────────────
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.add('open');
+    });
+    document.getElementById('mobileClose').addEventListener('click', closeMobileMenu);
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
