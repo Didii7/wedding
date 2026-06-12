@@ -6,9 +6,18 @@
   <title>J & O — Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Brilliant — Personal Use (loaded from local font file in /fonts/) */
+    @font-face {
+      font-family: 'Brilliant';
+      src: local('Brilliant'), url('fonts/Brilliant.ttf') format('truetype'),
+           url('fonts/Brilliant.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
     :root {
       --off-white:        #F9F6F2;
@@ -19,13 +28,17 @@
       --light-tourmaline: #FFB1C2;
       --nude:             #FFEDEB;
       --font-heading:     'Cormorant SC', serif;
+      --font-serif:       'Cormorant Garamond', serif;
       --font-body:        'Jost', sans-serif;
+      --font-script:      'Brilliant', 'Pinyon Script', cursive;
     }
 
     html { scroll-behavior: smooth; }
     body { background: var(--neutral-dark); color: var(--off-white); font-family: var(--font-body); overflow-x: hidden; }
 
-    /* ─── NAVBAR ─────────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════════════════════════════ */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -33,49 +46,42 @@
       transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
     }
 
-    /* transparent over hero */
     #navbar.state-hero {
       background: transparent;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       box-shadow: none;
     }
-
-    /* glass over dark sections */
     #navbar.state-dark {
-      background: rgba(45, 41, 38, 0.72);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(45, 41, 38, 0.55);
+      backdrop-filter: blur(6px) saturate(140%);
+      -webkit-backdrop-filter: blur(6px) saturate(140%);
       box-shadow: 0 1px 0 rgba(255,255,255,0.06);
     }
-
-    /* glass over light sections */
     #navbar.state-light {
-      background: rgba(249, 246, 242, 0.78);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      background: rgba(249, 246, 242, 0.65);
+      backdrop-filter: blur(6px) saturate(130%);
+      -webkit-backdrop-filter: blur(6px) saturate(130%);
       box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     }
-    #navbar.state-light .nav-link { color: var(--neutral-dark); }
-    #navbar.state-light .nav-logo-img { filter: invert(1); }
+    #navbar.state-light .nav-link       { color: var(--neutral-dark); }
+    #navbar.state-light .nav-link:hover,
+    #navbar.state-light .nav-link.active { color: var(--ruby); }
+    #navbar.state-light .nav-logo-img   { filter: invert(1) brightness(0); }
 
     .nav-inner {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 40px;
-      height: 64px;
+      padding: 8px 48px;
+      height: 104px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
     .nav-logo-img {
-      height: 36px;
+      height: 88px;
       width: auto;
       object-fit: contain;
       transition: filter 0.4s;
@@ -83,7 +89,8 @@
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      align-items: center;
+      gap: 32px;
       list-style: none;
     }
 
@@ -96,28 +103,29 @@
       color: var(--off-white);
       text-decoration: none;
       transition: color 0.25s;
-      position: relative;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0; right: 0;
-      height: 1px;
-      background: var(--light-tourmaline);
-      transform: scaleX(0);
-      transition: transform 0.25s;
-      transform-origin: left;
     }
     .nav-link:hover,
-    .nav-link.active {
-      color: var(--light-tourmaline);
-    }
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      transform: scaleX(1);
-    }
+    .nav-link.active { color: var(--light-tourmaline); }
 
-    /* hamburger — mobile */
+    /* RSVP nav CTA button — light tourmaline bg */
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--neutral-dark) !important;
+      text-decoration: none;
+      padding: 10px 24px;
+      background: var(--light-tourmaline);
+      border: none;
+      transition: filter 0.25s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .nav-cta:active { transform: translateY(0); }
+
+    /* Hamburger */
     .nav-hamburger {
       display: none;
       flex-direction: column;
@@ -125,95 +133,118 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
+      padding: 8px;
+      z-index: 1100;
+      position: relative;
     }
     .nav-hamburger span {
       display: block;
       width: 24px;
       height: 1.5px;
       background: var(--off-white);
-      transition: background 0.3s, transform 0.3s;
+      transition: background 0.3s, transform 0.3s, opacity 0.3s;
     }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-    /* mobile menu */
+    /* Mobile overlay menu */
     .nav-mobile-menu {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 999;
-      background: rgba(45, 41, 38, 0.96);
+      z-index: 1050;
+      background: rgba(45, 41, 38, 0.97);
       backdrop-filter: blur(20px);
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 32px;
+      gap: 36px;
     }
     .nav-mobile-menu.open { display: flex; }
     .nav-mobile-menu .nav-link {
-      font-size: 15px;
+      font-size: 14px;
       letter-spacing: 0.22em;
     }
-    .nav-mobile-close {
-      position: absolute;
-      top: 24px; right: 24px;
-      background: none; border: none;
-      color: var(--off-white);
-      font-size: 28px;
-      cursor: pointer;
-      line-height: 1;
+    .nav-mobile-menu .nav-cta {
+      font-size: 12px;
+      padding: 12px 32px;
     }
 
-    /* ─── HERO ───────────────────────────────────────────────────── */
+    /* Mobile close button */
+    .mobile-menu-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--off-white);
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .mobile-menu-close:hover { background: rgba(255,255,255,0.1); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════════════════ */
     #hero {
       position: relative;
       width: 100%;
-      height: 100vh;
-      min-height: 600px;
+      min-height: 100vh;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
+    /* Invisible sizer drives section height to image's natural height */
+    .hero-sizer {
+      display: block;
+      width: 100%;
+      height: auto;
+      visibility: hidden;
+      position: relative;
+      z-index: -1;
+    }
     .hero-bg {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       object-position: center top;
       filter: grayscale(100%);
       z-index: 0;
     }
-
-    /* dark vignette overlay matching reference */
     .hero-overlay {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%),
-        linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
+        radial-gradient(ellipse at center, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.52) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.38) 100%);
       z-index: 1;
     }
-
     .hero-content {
-      position: relative;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 32px;
     }
-
     .hero-monogram {
       width: 180px;
       height: auto;
       filter: brightness(0) invert(1);
-      /* subtle drop shadow for legibility over photo */
-      filter: drop-shadow(0 2px 24px rgba(0,0,0,0.5)) brightness(0) invert(1);
     }
-
-    /* RSVP button — gradient from Figma: #9B111E → #68000D */
     .btn-rsvp {
       display: inline-block;
       font-family: var(--font-body);
@@ -226,138 +257,410 @@
       padding: 14px 40px;
       background: linear-gradient(to right, var(--ruby), var(--deep-ruby));
       border: 0.5px solid rgba(231, 84, 128, 0.5);
-      border-radius: 0;
       cursor: pointer;
       transition: filter 0.25s, transform 0.2s;
-      box-shadow:
-        0 4px 20px rgba(155, 17, 30, 0.35),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(155,17,30,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
     }
-    .btn-rsvp:hover {
-      filter: brightness(1.12);
-      transform: translateY(-1px);
-    }
-    .btn-rsvp:active {
-      transform: translateY(0);
+    .btn-rsvp:hover  { filter: brightness(1.12); transform: translateY(-1px); }
+    .btn-rsvp:active { transform: translateY(0); }
+
+    /* Hero date */
+    .hero-date {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.32em;
+      color: var(--off-white);
+      opacity: 0.85;
+      text-align: center;
     }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════════════════════
+       OUR STORY
+    ═══════════════════════════════════════════════════════════════ */
+    #our-story {
+      position: relative;
+      background: var(--off-white);
+      overflow: hidden;
+      padding: 100px 0 120px;
+    }
+
+    /* Background pattern via inline JS-injected style to avoid CSS escape issues */
+    .story-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.16;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .story-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    /* ── Photo stack ──────────────────────────────────────────── */
+    /*
+      Layout (straight, no tilts):
+      Container is relatively positioned.
+      F1 (light pink): top-right, tallest/widest — back layer
+      F2 (deep pink):  overlaps F1 at ~50% vertical, left side (~-30px from F1 left edge)
+      F3 (ruby):       overlaps F2 at ~80% down, shifted right (~60% of F2 width)
+    */
+    .story-photos {
+      position: relative;
+      /* height driven by ruby bottom: top=236 + height=340 = 576 */
+      height: 580px;
+      overflow: visible;
+    }
+
+    .story-photo-frame {
+      position: absolute;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+    .story-photo-inner {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .story-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    /* Script caption */
+    .story-photo-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: var(--font-script);
+      font-size: 16px;
+      color: var(--off-white);
+      z-index: 2;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+      padding: 0 10px;
+    }
+
+    /* Frame 1 — light pink, behind deep pink, shifted ~45% left and down (z:1) */
+    .frame-light-pink {
+      top: 40px;
+      left: 125px;
+      right: auto;
+      width: 240px;
+      height: 340px;
+      background: var(--light-tourmaline);
+      padding: 10px 10px 50px;
+      z-index: 1;
+      transform: none;
+    }
+    .frame-light-pink .story-photo-inner { background: #999; }
+
+    /* Frame 2 — deep pink, overlaps F1 at 50% vertical on its left side, no tilt */
+    .frame-deep-pink {
+      top: 170px;
+      left: 0;
+      width: 240px;
+      height: 340px;
+      background: var(--tourmaline);
+      padding: 10px 10px 54px;
+      z-index: 2;
+      transform: none;
+    }
+    .frame-deep-pink .story-photo-inner { background: #777; }
+
+    /* Frame 3 — ruby, sits high over F2 (~80% of F2 hidden below ruby), shifted far right */
+    /* F2 top=170, height=340 → 20% visible above = ruby top at ~170+68=238px
+       Ruby shifted right: left=175px (≈15% further right than before) */
+    .frame-ruby {
+      top: 236px;
+      left: 190px;
+      width: 240px;
+      height: 340px;
+      background: var(--ruby);
+      padding: 10px 10px 54px;
+      z-index: 3;
+      transform: none;
+    }
+    .frame-ruby .story-photo-inner { background: #444; }
+
+    /* ── Text column ──────────────────────────────────────────── */
+    .story-text { display: flex; flex-direction: column; gap: 20px; }
+
+
+    .story-eyebrow {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--tourmaline);
+    }
+
+    .story-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 3.6vw, 48px);
+      font-weight: 500;
+      line-height: 1.12;
+      color: var(--ruby);
+      letter-spacing: 0.01em;
+    }
+
+    .story-body {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--neutral-dark);
+      max-width: 400px;
+    }
+
+    .story-attribution {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--tourmaline);
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    .story-attribution::before { content: '— '; }
+
+    .btn-gallery {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      padding: 14px 32px;
+      background: linear-gradient(to right, var(--ruby), var(--deep-ruby));
+      border: 0.5px solid rgba(231, 84, 128, 0.5);
+      box-shadow: 0 4px 20px rgba(155,17,30,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: filter 0.25s, transform 0.2s;
+    }
+    .btn-gallery:hover  { filter: brightness(1.12); transform: translateY(-1px); }
+    .btn-gallery:active { transform: translateY(0); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .story-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 0 24px;
+      }
+      .story-photos {
+        height: 480px;
+        max-width: 420px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .story-text {
+        align-items: center;
+      }
+      .btn-gallery {
+        align-self: center;
+      }
+      /* All cards same size at tablet, scaled proportionally */
+      .frame-light-pink { width: 190px; height: 268px; top: 40px; left: 100px; right: auto; }
+      .frame-deep-pink  { width: 190px; height: 268px; top: 134px; left: 0; }
+      .frame-ruby       { width: 190px; height: 268px; top: 187px; left: 150px; }
+      #our-story        { padding: 80px 0; }
+    }
+
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .nav-links     { display: none; }
       .nav-hamburger { display: flex; }
-      .nav-inner { padding: 0 20px; }
-
-      .hero-monogram { width: 130px; }
-      .btn-rsvp { padding: 12px 32px; font-size: 10px; }
+      .nav-inner     { padding: 8px 20px; height: 88px; }
+      .nav-logo-img  { height: 72px; }
+      .hero-monogram { width: 180px; }
+      .btn-rsvp      { padding: 12px 32px; font-size: 10px; }
     }
   </style>
 </head>
-<body data-section="hero">
+<body>
 
-  <!-- ─── NAVBAR ─────────────────────────────────────────────── -->
+  <!-- NAVBAR -->
   <nav id="navbar" class="state-hero">
     <div class="nav-inner">
-      <!-- Logo top-left -->
       <a href="#hero" class="nav-logo">
-        <img src="logo group.png" alt="J&amp;O" class="nav-logo-img" />
+        <img src="images/logo group.png" alt="J&amp;O" class="nav-logo-img" />
       </a>
-
-      <!-- Desktop nav -->
       <ul class="nav-links">
-        <li><a href="#rsvp"      class="nav-link active">RSVP</a></li>
-        <li><a href="#our-story" class="nav-link">Our Story</a></li>
-        <li><a href="#details"   class="nav-link">Details</a></li>
-        <li><a href="#asoebi"    class="nav-link">Asoebi</a></li>
-        <li><a href="#registry"  class="nav-link">Registry</a></li>
-        <li><a href="#gallery"   class="nav-link">Gallery</a></li>
+        <li><a href="#our-story" class="nav-link" data-section="our-story">Our Story</a></li>
+        <li><a href="#details"   class="nav-link" data-section="details">Details</a></li>
+        <li><a href="#asoebi"    class="nav-link" data-section="asoebi">Asoebi</a></li>
+        <li><a href="#registry"  class="nav-link" data-section="registry">Registry</a></li>
+        <li><a href="#gallery"   class="nav-link" data-section="gallery">Gallery</a></li>
+        <li><a href="#rsvp"      class="nav-cta"  data-section="rsvp">RSVP</a></li>
       </ul>
-
-      <!-- Mobile hamburger -->
-      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- Mobile menu overlay -->
+  <!-- Mobile overlay -->
   <div class="nav-mobile-menu" id="mobileMenu">
-    <button class="nav-mobile-close" id="mobileClose" aria-label="Close menu">&#215;</button>
-    <a href="#rsvp"      class="nav-link" onclick="closeMobileMenu()">RSVP</a>
-    <a href="#our-story" class="nav-link" onclick="closeMobileMenu()">Our Story</a>
-    <a href="#details"   class="nav-link" onclick="closeMobileMenu()">Details</a>
-    <a href="#asoebi"    class="nav-link" onclick="closeMobileMenu()">Asoebi</a>
-    <a href="#registry"  class="nav-link" onclick="closeMobileMenu()">Registry</a>
-    <a href="#gallery"   class="nav-link" onclick="closeMobileMenu()">Gallery</a>
+    <button class="mobile-menu-close" aria-label="Close menu" onclick="closeMobileMenu()">&#10005;</button>
+    <a href="#our-story" class="nav-link" data-section="our-story" onclick="closeMobileMenu()">Our Story</a>
+    <a href="#details"   class="nav-link" data-section="details"   onclick="closeMobileMenu()">Details</a>
+    <a href="#asoebi"    class="nav-link" data-section="asoebi"    onclick="closeMobileMenu()">Asoebi</a>
+    <a href="#registry"  class="nav-link" data-section="registry"  onclick="closeMobileMenu()">Registry</a>
+    <a href="#gallery"   class="nav-link" data-section="gallery"   onclick="closeMobileMenu()">Gallery</a>
+    <a href="#rsvp"      class="nav-cta"                           onclick="closeMobileMenu()">RSVP</a>
   </div>
 
-  <!-- ─── HERO ───────────────────────────────────────────────── -->
-  <section id="hero">
-    <img src="Hero section image.png" alt="" class="hero-bg" />
+  <!-- HERO -->
+  <section id="hero" data-nav-section="hero">
+    <img src="images/Hero section image.png" alt="" class="hero-sizer" aria-hidden="true" />
+    <img src="images/Hero section image.png" alt="" class="hero-bg" />
     <div class="hero-overlay"></div>
-
     <div class="hero-content">
-      <img src="logo group 2.png" alt="J&amp;O monogram" class="hero-monogram" />
+      <img src="images/logo group 2.png" alt="J&amp;O monogram" class="hero-monogram" />
+      <p class="hero-date">05 . 12 . 2026</p>
       <a href="#rsvp" class="btn-rsvp">RSVP</a>
     </div>
   </section>
 
-  <!-- Placeholder sections so navbar state-change can be tested -->
-  <section id="our-story"  style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Our Story — coming soon</p>
+  <!-- OUR STORY -->
+  <section id="our-story" data-theme="light" data-nav-section="our-story">
+    <div class="story-bg-pattern" id="storyBg"></div>
+
+    <div class="story-inner">
+
+      <!-- Photo stack -->
+      <div class="story-photos">
+
+        <!-- Frame 1: light tourmaline, top-right, back, no caption -->
+        <div class="story-photo-frame frame-light-pink">
+          <div class="story-photo-inner">
+            <img src="images/story_photo_light_pink.png" alt="Couple photo" />
+          </div>
+        </div>
+
+        <!-- Frame 2: deep pink, mid-left overlapping F1, "Our first Date" -->
+        <div class="story-photo-frame frame-deep-pink">
+          <div class="story-photo-inner">
+            <img src="images/story_photo_deep_pink.png" alt="Our first date" />
+          </div>
+          <span class="story-photo-caption">Our first Date</span>
+        </div>
+
+        <!-- Frame 3: ruby, bottom-right of F2, "Our engagement shoot" -->
+        <div class="story-photo-frame frame-ruby">
+          <div class="story-photo-inner">
+            <img src="images/story_photo_ruby.png" alt="Our engagement shoot" />
+          </div>
+          <span class="story-photo-caption">Our engagement shoot</span>
+        </div>
+
+      </div>
+
+      <!-- Text -->
+      <div class="story-text">
+        <p class="story-eyebrow">Our Story</p>
+        <h2 class="story-heading">From A Random<br>Instagram Dm To A<br>Lifetime Together</h2>
+        <p class="story-body">
+          What began as an ordinary evening in Lagos became the extraordinary beginning of a life we never dared dream so beautiful. Adaeze and Oluwaseun's love is a testament to the quiet magic that happens when two people recognize their home in each other. Their story is one of patience, laughter, and unwavering devotion — a love that has only grown deeper with every passing season
+        </p>
+        <p class="story-attribution">ISIOMA &amp; EMMANUEL</p>
+        <a href="#gallery" class="btn-gallery">View Image Gallery</a>
+      </div>
+
+    </div>
   </section>
-  <section id="details"    style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;" data-theme="dark">
+
+  <!-- Placeholder sections -->
+  <section id="details"  data-theme="dark"  data-nav-section="details"  style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;">
     <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Details — coming soon</p>
   </section>
-  <section id="asoebi"     style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
+  <section id="asoebi"   data-theme="light" data-nav-section="asoebi"   style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;">
     <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Asoebi — coming soon</p>
   </section>
-  <section id="registry"   style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;" data-theme="dark">
+  <section id="registry" data-theme="dark"  data-nav-section="registry" style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;">
     <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Registry — coming soon</p>
   </section>
-  <section id="gallery"    style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;" data-theme="light">
+  <section id="gallery"  data-theme="light" data-nav-section="gallery"  style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;">
     <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Gallery — coming soon</p>
   </section>
-  <section id="rsvp"       style="height:100vh;background:var(--nude);display:flex;align-items:center;justify-content:center;" data-theme="light">
+  <section id="rsvp"     data-theme="light" data-nav-section="rsvp"     style="height:100vh;background:var(--nude);display:flex;align-items:center;justify-content:center;">
     <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">RSVP — coming soon</p>
   </section>
 
   <script>
-    // ─── Navbar scroll state ─────────────────────────────────────
-    const navbar = document.getElementById('navbar');
-    const hero   = document.getElementById('hero');
+    /* ── Background image via JS to avoid CSS escape/path issues ── */
+    document.getElementById('storyBg').style.backgroundImage = 'url("images/our-story.png")'
+
+    /* ── Navbar state + active link highlighting ─────────────────── */
+    const navbar  = document.getElementById('navbar');
+    const heroSec = document.getElementById('hero');
+    const allNavLinks = document.querySelectorAll('.nav-link[data-section]');
 
     function updateNavbar() {
-      const heroBottom = hero.getBoundingClientRect().bottom;
-
-      if (heroBottom > 80) {
+      const heroBottom = heroSec.getBoundingClientRect().bottom;
+      if (heroBottom > 88) {
         navbar.className = 'state-hero';
-        return;
+      } else {
+        const sections = document.querySelectorAll('[data-theme]');
+        let theme = 'dark';
+        sections.forEach(sec => {
+          const r = sec.getBoundingClientRect();
+          if (r.top <= 88 && r.bottom > 88) theme = sec.dataset.theme;
+        });
+        navbar.className = theme === 'light' ? 'state-light' : 'state-dark';
       }
 
-      // Detect which section is under the navbar
-      const sections = document.querySelectorAll('[data-theme]');
-      let theme = 'dark';
-      sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= 80 && rect.bottom > 80) {
-          theme = sec.dataset.theme;
-        }
+      const navSections = document.querySelectorAll('[data-nav-section]');
+      let activeId = '';
+      navSections.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        if (r.top <= 88 && r.bottom > 88) activeId = sec.dataset.navSection;
       });
-
-      navbar.className = theme === 'light' ? 'state-light' : 'state-dark';
+      allNavLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === activeId);
+      });
     }
 
     window.addEventListener('scroll', updateNavbar, { passive: true });
     updateNavbar();
 
-    // ─── Mobile menu ──────────────────────────────────────────────
-    document.getElementById('hamburger').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.add('open');
+    /* ── Mobile menu ─────────────────────────────────────────────── */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) { closeMobileMenu(); }
+      else { mobileMenu.classList.add('open'); hamburger.classList.add('is-open'); }
     });
-    document.getElementById('mobileClose').addEventListener('click', closeMobileMenu);
+
     function closeMobileMenu() {
-      document.getElementById('mobileMenu').classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('is-open');
     }
+
+    mobileMenu.addEventListener('click', e => {
+      if (e.target === mobileMenu) closeMobileMenu();
+    });
   </script>
 </body>
 </html>
