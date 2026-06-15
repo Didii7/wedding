@@ -6,7 +6,6 @@
   <title>J & O — Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,8 +25,7 @@
       --deep-ruby:        #68000D;
       --light-tourmaline: #FFB1C2;
       --nude:             #FFEDEB;
-      --font-heading:     'Playfair Display SC', serif;
-      --font-serif:       'Cormorant Garamond', serif;
+      --font-heading:     'Playfair Display', serif;
       --font-body:        'Jost', sans-serif;
       --font-script:      'Brilliant', 'Pinyon Script', cursive;
     }
@@ -250,7 +248,6 @@
       border: 0.5px solid rgba(231, 84, 128, 0.5);
       cursor: pointer;
       transition: filter 0.25s, transform 0.2s;
-      box-shadow: 0 4px 20px rgba(155,17,30,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
     }
     .btn-rsvp:hover  { filter: brightness(1.12); transform: translateY(-1px); }
     .btn-rsvp:active { transform: translateY(0); }
@@ -269,7 +266,7 @@
        ANNOUNCEMENT SECTION (after hero)
     ═══════════════════════════════════════════════════════════════ */
     #announcement {
-      background: var(--light-tourmaline);
+      background: rgba(255, 177, 194, 0.8);
       padding: 80px 24px 88px;
       display: flex;
       flex-direction: column;
@@ -284,10 +281,9 @@
     }
 
     .announcement-body {
-      font-family: var(--font-serif);
-      font-size: clamp(14px, 1.6vw, 17px);
+      font-family: var(--font-body);
+      font-size: 24px;
       font-weight: 300;
-      font-style: italic;
       line-height: 1.85;
       color: var(--neutral-dark);
       max-width: 620px;
@@ -296,8 +292,8 @@
 
     .announcement-hashtag {
       font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 400;
       letter-spacing: 0.08em;
       color: var(--ruby);
     }
@@ -411,12 +407,12 @@
     }
 
     .story-heading {
-      font-family: var(--font-serif);
-      font-size: clamp(32px, 3.6vw, 48px);
+      font-family: var(--font-heading);
+      font-size: 54px;
       font-weight: 600;
       line-height: 1.12;
       color: var(--ruby);
-      letter-spacing: 0.01em;
+      letter-spacing: 2px;
       text-transform: none;
     }
 
@@ -430,7 +426,7 @@
     }
 
     .story-attribution {
-      font-family: var(--font-serif);
+      font-family: var(--font-heading);
       font-size: 13px;
       font-weight: 300;
       color: var(--tourmaline);
@@ -453,7 +449,6 @@
       padding: 14px 32px;
       background: linear-gradient(to right, var(--ruby), var(--deep-ruby));
       border: 0.5px solid rgba(231, 84, 128, 0.5);
-      box-shadow: 0 4px 20px rgba(155,17,30,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
       transition: filter 0.25s, transform 0.2s;
     }
     .btn-gallery:hover  { filter: brightness(1.12); transform: translateY(-1px); }
@@ -470,6 +465,7 @@
       .story-text { justify-content: center; text-align: center;}
       .btn-gallery { align-self: center;}
       .story-body { justify-items: center; align-self: center;}
+      .announcement-hashtag { font-size: 14px;}
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -510,6 +506,7 @@
       margin-bottom: 18px;
       position: relative;
       z-index: 5;
+      text-transform: none !important;
     }
 
     .celebration-date {
@@ -535,7 +532,7 @@
       pointer-events: none;
       animation: starSpin 40s linear infinite;
     }
-    .details-star { width: 100%; height: 100%; object-fit: contain; opacity: 0.15; display: block; }
+    .details-star { width: 100%; height: 100%; object-fit: contain; display: block; }
 
     /* Monogram watermark */
     .celebration-watermark {
@@ -898,7 +895,7 @@
       grid-template-columns: 1fr 1fr;
       max-width: 1240px;
       margin: 40px auto 100px;
-      gap: 0;
+      gap: 20px;
     }
     .venue-bottom-img-wrap {
       border: 1px solid #EECF65;
@@ -1358,7 +1355,7 @@
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
     #footer {
-      background: var(--off-white);
+      background: var(--light-tourmaline);
       padding: 56px 0 0;
     }
     .footer-inner {
@@ -1378,8 +1375,6 @@
       height: 160px;
       width: auto;
       object-fit: contain;
-      /* deep ruby */
-      filter: invert(80%) sepia(90%) saturate(3000%) hue-rotate(338deg) brightness(55%) contrast(110%);
     }
     .footer-cols-right {
       display: grid;
@@ -1409,7 +1404,7 @@
       font-family: var(--font-body);
       font-size: 13px;
       font-weight: 300;
-      color: var(--neutral-dark);
+      color: var(--deep-ruby);
       text-decoration: none;
       letter-spacing: 0.01em;
       transition: color 0.2s;
@@ -1462,7 +1457,6 @@
       background: linear-gradient(117deg, var(--ruby) 0%, var(--deep-ruby) 100%);
       border: 0.5px solid rgba(231,84,128,0.5);
       border-radius: 2px;
-      box-shadow: 0 4px 9px rgba(155,17,30,0.3);
       font-family: var(--font-body);
       font-size: 12px;
       font-weight: 400;
@@ -1531,9 +1525,9 @@
     ═══════════════════════════════════════════════════════════════ */
     #registry {
       position: relative;
-      background: rgba(255, 177, 194, 0.30);
       overflow: hidden;
       padding: 100px 0 0;
+      background-color: var(--light-tourmaline);
     }
 
     /* Rotating hearts background decoration */
@@ -1756,11 +1750,12 @@
       .story-photos {
         height: 420px;
         width: 100%;
+        margin-bottom: 30px;
       }
       .frame-light-pink { left: 80px; width: 200px; height: 280px; }
       .frame-deep-pink  { left: 0; top: 130px; width: 200px; height: 280px; }
       .frame-ruby       { left: 130px; top: 190px; width: 200px; height: 280px; }
-      .story-heading    { font-size: clamp(22px, 6vw, 34px); }
+      .story-heading    { font-size: 32px; }
 
       /* Venue */
       .venue-heading-wrap { padding: 60px 20px 40px; }
@@ -1940,14 +1935,6 @@
         <p class="details-card-eyebrow">SCHEDULE OF EVENTS</p>
 
         <div class="schedule-events">
-          <!-- dot + dashed lines column -->
-          <div class="sch-dot-col">
-            <span class="sch-bullet"></span>
-            <span class="sch-dash" style="min-height:88px;"></span>
-            <span class="sch-bullet"></span>
-            <span class="sch-dash" style="min-height:64px;"></span>
-            <span class="sch-bullet"></span>
-          </div>
 
           <!-- All events stacked -->
           <div class="sch-events-col">
@@ -2324,7 +2311,7 @@
 
       <!-- Logo column -->
       <div class="footer-logo-col">
-        <img src="images/logo group.png" alt="J&amp;O" class="footer-logo" />
+        <img src="images/footer_logo.png" alt="J&amp;O" class="footer-logo" />
       </div>
 
       <!-- Right: Nav / Contact / RSVP -->
