@@ -6,17 +6,16 @@
   <title>J & O — Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Brilliant — Personal Use (loaded from local font file in /fonts/) */
     @font-face {
       font-family: 'Brilliant';
-      src: local('Brilliant'), url('fonts/Brilliant.ttf') format('truetype'),
-           url('fonts/Brilliant.otf') format('opentype');
+      src: url('fonts/Brilliant-PersonalUse.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
 
     :root {
@@ -27,7 +26,7 @@
       --deep-ruby:        #68000D;
       --light-tourmaline: #FFB1C2;
       --nude:             #FFEDEB;
-      --font-heading:     'Cormorant SC', serif;
+      --font-heading:     'Playfair Display SC', serif;
       --font-serif:       'Cormorant Garamond', serif;
       --font-body:        'Jost', sans-serif;
       --font-script:      'Brilliant', 'Pinyon Script', cursive;
@@ -69,6 +68,11 @@
     #navbar.state-light .nav-link.active { color: var(--ruby); }
     #navbar.state-light .nav-logo-img   { filter: invert(1) brightness(0); }
 
+    /* Hamburger color: dark on light sections, light on dark/hero */
+    #navbar.state-light .nav-hamburger span { background: var(--neutral-dark); }
+    #navbar.state-hero  .nav-hamburger span,
+    #navbar.state-dark  .nav-hamburger span { background: var(--off-white); }
+
     .nav-inner {
       max-width: 1280px;
       margin: 0 auto;
@@ -107,7 +111,6 @@
     .nav-link:hover,
     .nav-link.active { color: var(--light-tourmaline); }
 
-    /* RSVP nav CTA button — light tourmaline bg */
     .nav-cta {
       font-family: var(--font-body);
       font-size: 11px;
@@ -162,29 +165,18 @@
       gap: 36px;
     }
     .nav-mobile-menu.open { display: flex; }
-    .nav-mobile-menu .nav-link {
-      font-size: 14px;
-      letter-spacing: 0.22em;
-    }
-    .nav-mobile-menu .nav-cta {
-      font-size: 12px;
-      padding: 12px 32px;
-    }
+    .nav-mobile-menu .nav-link { font-size: 14px; letter-spacing: 0.22em; }
+    .nav-mobile-menu .nav-cta  { font-size: 12px; padding: 12px 32px; }
 
-    /* Mobile close button */
     .mobile-menu-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 20px; right: 20px;
       background: none;
       border: 1px solid rgba(255,255,255,0.3);
       color: var(--off-white);
       font-size: 18px;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
       cursor: pointer;
       border-radius: 50%;
       transition: background 0.2s;
@@ -203,7 +195,6 @@
       align-items: center;
       justify-content: center;
     }
-    /* Invisible sizer drives section height to image's natural height */
     .hero-sizer {
       display: block;
       width: 100%;
@@ -264,7 +255,6 @@
     .btn-rsvp:hover  { filter: brightness(1.12); transform: translateY(-1px); }
     .btn-rsvp:active { transform: translateY(0); }
 
-    /* Hero date */
     .hero-date {
       font-family: var(--font-body);
       font-size: 13px;
@@ -273,6 +263,43 @@
       color: var(--off-white);
       opacity: 0.85;
       text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANNOUNCEMENT SECTION (after hero)
+    ═══════════════════════════════════════════════════════════════ */
+    #announcement {
+      background: var(--light-tourmaline);
+      padding: 80px 24px 88px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .announcement-hearts {
+      height: 56px;
+      width: auto;
+      margin-bottom: 28px;
+    }
+
+    .announcement-body {
+      font-family: var(--font-serif);
+      font-size: clamp(14px, 1.6vw, 17px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.85;
+      color: var(--neutral-dark);
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+
+    .announcement-hashtag {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ruby);
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -285,13 +312,12 @@
       padding: 100px 0 120px;
     }
 
-    /* Background pattern via inline JS-injected style to avoid CSS escape issues */
     .story-bg-pattern {
       position: absolute;
       inset: 0;
       background-repeat: no-repeat;
-      background-size: contain;
-      opacity: 0.16;
+      background-size: cover;
+      opacity: 0.08;
       z-index: 0;
       pointer-events: none;
     }
@@ -308,17 +334,8 @@
       gap: 60px;
     }
 
-    /* ── Photo stack ──────────────────────────────────────────── */
-    /*
-      Layout (straight, no tilts):
-      Container is relatively positioned.
-      F1 (light pink): top-right, tallest/widest — back layer
-      F2 (deep pink):  overlaps F1 at ~50% vertical, left side (~-30px from F1 left edge)
-      F3 (ruby):       overlaps F2 at ~80% down, shifted right (~60% of F2 width)
-    */
     .story-photos {
       position: relative;
-      /* height driven by ruby bottom: top=236 + height=340 = 576 */
       height: 580px;
       overflow: visible;
     }
@@ -341,82 +358,66 @@
       filter: grayscale(100%);
     }
 
-    /* Script caption */
     .story-photo-caption {
       position: absolute;
       bottom: 16px;
       left: 0; right: 0;
       text-align: center;
-      font-family: var(--font-script);
-      font-size: 16px;
+      font-family: 'Brilliant', 'Pinyon Script', cursive;
+      font-size: 20px;
+      font-weight: 400;
       color: var(--off-white);
       z-index: 2;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
       padding: 0 10px;
+      opacity: 0.88;
     }
 
-    /* Frame 1 — light pink, behind deep pink, shifted ~45% left and down (z:1) */
     .frame-light-pink {
-      top: 40px;
-      left: 125px;
-      right: auto;
-      width: 240px;
-      height: 340px;
+      top: 40px; left: 125px; right: auto;
+      width: 240px; height: 340px;
       background: var(--light-tourmaline);
       padding: 10px 10px 50px;
       z-index: 1;
-      transform: none;
     }
     .frame-light-pink .story-photo-inner { background: #999; }
 
-    /* Frame 2 — deep pink, overlaps F1 at 50% vertical on its left side, no tilt */
     .frame-deep-pink {
-      top: 170px;
-      left: 0;
-      width: 240px;
-      height: 340px;
+      top: 170px; left: 0;
+      width: 240px; height: 340px;
       background: var(--tourmaline);
       padding: 10px 10px 54px;
       z-index: 2;
-      transform: none;
     }
     .frame-deep-pink .story-photo-inner { background: #777; }
 
-    /* Frame 3 — ruby, sits high over F2 (~80% of F2 hidden below ruby), shifted far right */
-    /* F2 top=170, height=340 → 20% visible above = ruby top at ~170+68=238px
-       Ruby shifted right: left=175px (≈15% further right than before) */
     .frame-ruby {
-      top: 236px;
-      left: 190px;
-      width: 240px;
-      height: 340px;
+      top: 236px; left: 190px;
+      width: 240px; height: 340px;
       background: var(--ruby);
       padding: 10px 10px 54px;
       z-index: 3;
-      transform: none;
     }
     .frame-ruby .story-photo-inner { background: #444; }
 
-    /* ── Text column ──────────────────────────────────────────── */
     .story-text { display: flex; flex-direction: column; gap: 20px; }
-
 
     .story-eyebrow {
       font-family: var(--font-body);
       font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.28em;
+      letter-spacing: 8px;
       text-transform: uppercase;
       color: var(--tourmaline);
     }
 
     .story-heading {
-      font-family: var(--font-heading);
+      font-family: var(--font-serif);
       font-size: clamp(32px, 3.6vw, 48px);
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.12;
       color: var(--ruby);
       letter-spacing: 0.01em;
+      text-transform: none;
     }
 
     .story-body {
@@ -458,42 +459,1345 @@
     .btn-gallery:hover  { filter: brightness(1.12); transform: translateY(-1px); }
     .btn-gallery:active { transform: translateY(0); }
 
-    /* ═══════════════════════════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════════════════════════ */
-    @media (max-width: 900px) {
-      .story-inner {
-        grid-template-columns: 1fr;
-        gap: 48px;
-        padding: 0 24px;
-      }
-      .story-photos {
-        height: 480px;
-        max-width: 420px;
-        margin: 0 auto;
-        width: 100%;
-      }
-      .story-text {
-        align-items: center;
-      }
-      .btn-gallery {
-        align-self: center;
-      }
-      /* All cards same size at tablet, scaled proportionally */
-      .frame-light-pink { width: 190px; height: 268px; top: 40px; left: 100px; right: auto; }
-      .frame-deep-pink  { width: 190px; height: 268px; top: 134px; left: 0; }
-      .frame-ruby       { width: 190px; height: 268px; top: 187px; left: 150px; }
-      #our-story        { padding: 80px 0; }
-    }
-
     @media (max-width: 768px) {
       .nav-links     { display: none; }
       .nav-hamburger { display: flex; }
       .nav-inner     { padding: 8px 20px; height: 88px; }
       .nav-logo-img  { height: 72px; }
       .hero-monogram { width: 180px; }
-      .btn-rsvp      { padding: 12px 32px; font-size: 10px; }
+      .btn-rsvp      { padding: 12px 32px; font-size: 10px; width: 121.73px; text-align: center; }
+      .announcement-body { font-size: 14px; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DETAILS — THE CELEBRATION
+    ═══════════════════════════════════════════════════════════════ */
+    #details {
+      background: var(--deep-ruby);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Header band ── */
+    .celebration-header {
+      position: relative;
+      padding: 80px 80px 0;
+      z-index: 1;
+    }
+
+    .celebration-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--nude);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .celebration-title {
+      font-family: var(--font-heading);
+      font-size: clamp(38px, 4.5vw, 62px);
+      font-weight: 700;
+      color: var(--light-tourmaline);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .celebration-date {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #EECF65;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Spinning star */
+    @keyframes starSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .details-star-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(740px, 88vw);
+      height: min(740px, 88vw);
+      z-index: 0;
+      pointer-events: none;
+      animation: starSpin 40s linear infinite;
+    }
+    .details-star { width: 100%; height: 100%; object-fit: contain; opacity: 0.15; display: block; }
+
+    /* Monogram watermark */
+    .celebration-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(200px, 24vw);
+      pointer-events: none;
+      opacity: 0.08;
+      z-index: 1;
+    }
+    .celebration-watermark-img { width: 100%; filter: brightness(0) invert(1); }
+
+    /* ── Cards row — bottom-aligned, breathing room at bottom ── */
+    .celebration-cards-row {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 32px;
+      padding: 60px 80px 80px;
+      position: relative;
+      z-index: 5;
+      align-items: end;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* Shared card — glass blur matching navbar dark state */
+    .details-card {
+      background: rgb(104 0 13 / 62%);
+      border: 0.5px solid rgba(255,177,194,0.45);
+      border-radius: 10px;
+      color: var(--off-white);
+    }
+
+    /* ── LEFT CARD — Important Notes ── */
+    .details-card--left {
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .details-card-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--light-tourmaline);
+      margin-bottom: 16px;
+    }
+
+    .details-card-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      color: var(--off-white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .details-card-divider {
+      width: 120px;
+      height: 1px;
+      background: var(--off-white);
+      margin-bottom: 32px;
+    }
+
+    .details-guest-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .details-guest-list li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .details-guest-icon {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--off-white);
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+    .details-guest-text {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--off-white);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── RIGHT CARD — Schedule of Events ── */
+    .details-card--right {
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .details-card--right .details-card-eyebrow {
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    /* Schedule container: dot-col + events stacked */
+    .schedule-events {
+      display: flex;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    /* Thin column holding all bullets and dashes */
+    .sch-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+    .sch-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--off-white);
+      flex-shrink: 0;
+    }
+    .sch-dash {
+      width: 0;
+      border-left: 0.5px dashed rgba(249,246,242,0.40);
+      flex: 1;
+      min-height: 120px;
+      margin-top: 5px;
+    }
+    .schedule-event:last-child .sch-dash { display: none; }
+
+    /* Events column */
+    .sch-events-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Each event: flex column so time sits above title — no grid overlap */
+    .schedule-event {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 0;
+      align-items: baseline;
+    }
+
+    /* Time */
+    .sch-time {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+      padding-top: 2px;
+    }
+
+    /* Content block sits below time */
+    .sch-content {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 48px;
+    }
+    .schedule-event:last-child .sch-content { padding-bottom: 0; }
+
+    .sch-event-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--light-tourmaline);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      margin-top: 4px;
+    }
+    .sch-event-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--nude);
+      line-height: 1.7;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .sch-event-venue {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1100px) {
+      .celebration-cards-row { grid-template-columns: 1fr 1fr; gap: 24px; padding: 48px 40px 80px; }
+    }
+    @media (max-width: 768px) {
+      .celebration-header { padding: 56px 20px 0; }
+      .celebration-cards-row {
+        grid-template-columns: 1fr;
+        padding: 32px 20px 60px;
+        gap: 20px;
+        align-items: start;
+      }
+      .details-card--right { order: -1; }
+      .details-star-wrap { width: min(320px, 90vw); height: min(320px, 90vw); }
+      .details-card-title { font-size: 26px; }
+    }
+    /* ═══════════════════════════════════════════════════════════════
+       THE VENUE
+    ═══════════════════════════════════════════════════════════════ */
+    #venue {
+      background: var(--off-white);
+      overflow: hidden;
+    }
+
+    /* Centred heading block */
+    .venue-heading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+    .venue-eyebrow {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--tourmaline);
+    }
+    .venue-title {
+      font-family: var(--font-heading);
+      font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 700;
+      color: var(--ruby);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+    }
+
+    /* Panoramic strip */
+    .venue-map-strip {
+      position: relative;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      height: 500px;
+      overflow: hidden;
+    }
+    .venue-aerial-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 190%;
+      object-fit: cover;
+      object-position: center top;
+      pointer-events: none;
+    }
+
+    /* Venue name card — top-left */
+    .venue-name-card {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      background: var(--off-white);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px;
+      box-shadow: 3px 4px 5px rgba(0,0,0,0.25);
+      z-index: 5;
+    }
+    .venue-pin-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .venue-card-name {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ruby);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .venue-card-sub {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--neutral-dark);
+    }
+
+    /* Info bar — bottom-center */
+    .venue-info-bar {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--off-white);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 2px rgba(0,0,0,0.25);
+      z-index: 5;
+      white-space: nowrap;
+    }
+    .venue-info-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 220px;
+    }
+    .venue-info-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--deep-ruby);
+    }
+    .venue-info-text {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 20px;
+      color: var(--neutral-dark);
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+    .venue-info-text p { margin: 0; }
+    .venue-info-divider {
+      width: 1px;
+      height: 90px;
+      background: var(--deep-ruby);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* Two bottom image panels */
+    .venue-bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1240px;
+      margin: 40px auto 100px;
+      gap: 0;
+    }
+    .venue-bottom-img-wrap {
+      border: 1px solid #EECF65;
+      height: 300px;
+      overflow: hidden;
+    }
+    .venue-bottom-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .venue-map-strip { height: 420px; }
+      .venue-info-bar { flex-wrap: wrap; white-space: normal; width: 90%; justify-content: center; }
+      .venue-info-col { width: 160px; }
+      .venue-info-divider { display: none; }
+      .venue-bottom-row { grid-template-columns: 1fr; }
+      .venue-bottom-img-wrap { height: 220px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ASOEBI DETAILS
+    ═══════════════════════════════════════════════════════════════ */
+    #asoebi {
+      position: relative;
+      background: var(--off-white);
+      padding: 100px 24px 60px;
+      overflow: hidden;
+    }
+
+    /* Same bg pattern as our-story */
+    .asoebi-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Inner gold-bordered container */
+    .asoebi-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      background: rgba(238, 207, 101, 0.10);
+      border: 2px solid #EECF65;
+      padding: 56px 72px 0;
+      overflow: hidden;
+    }
+
+    /* Heading */
+    .asoebi-heading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .asoebi-eyebrow {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--tourmaline);
+      text-align: center;
+    }
+    .asoebi-title {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 5.2vw, 68px);
+      font-weight: 700;
+      color: var(--ruby);
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .asoebi-intro {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--neutral-dark);
+      letter-spacing: 0.04em;
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 56px;
+    }
+
+    /* Fabric swatches row */
+    .asoebi-fabrics-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 75px;
+      margin-bottom: 56px;
+    }
+    .asoebi-fabric-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .asoebi-swatch-wrap {
+      width: 280px;
+      height: 180px;
+      background: var(--off-white);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .asoebi-swatch-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .asoebi-fabric-info {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      width: 146px;
+      text-align: center;
+    }
+    .asoebi-fabric-info--right { text-align: right; align-items: flex-end; }
+    .asoebi-fabric-item { display: flex; flex-direction: column; gap: 10px; }
+    .asoebi-fabric-name {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ruby);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .asoebi-fabric-price {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--neutral-dark);
+      letter-spacing: 0.04em;
+    }
+
+    /* Gold vertical divider between fabric groups */
+    .asoebi-divider-vertical {
+      width: 1px;
+      height: 89px;
+      background: #EECF65;
+      flex-shrink: 0;
+    }
+
+    /* Gold horizontal rule */
+    .asoebi-hr {
+      width: 100%;
+      height: 1px;
+      background: #EECF65;
+      margin-bottom: 36px;
+    }
+
+    /* Order row below the rule */
+    .asoebi-order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      padding-bottom: 48px;
+    }
+    .asoebi-order-left {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+    }
+    .asoebi-order-desc {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--neutral-dark);
+      letter-spacing: 0.01em;
+    }
+    .asoebi-coordinators {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .asoebi-coordinator-name {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ruby);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .asoebi-coord-sep {
+      display: block;
+      width: 25px;
+      height: 1px;
+      background: var(--ruby);
+      flex-shrink: 0;
+    }
+
+    /* Account details block — right-aligned */
+    .asoebi-account {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .asoebi-account-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--neutral-dark);
+    }
+    .asoebi-account-detail { display: flex; flex-direction: column; gap: 6px; }
+    .asoebi-account-bank {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      color: var(--ruby);
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+    .asoebi-account-num, .asoebi-account-name {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      color: var(--ruby);
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+
+    /* "Orders close" footer line */
+    .asoebi-deadline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--neutral-dark);
+      text-align: center;
+      padding: 24px 0 32px;
+      border-top: 0;
+    }
+
+    @media (max-width: 900px) {
+      .asoebi-inner { padding: 48px 24px 0; }
+      .asoebi-fabrics-row { flex-wrap: wrap; gap: 36px; }
+      .asoebi-fabric-group { flex-wrap: wrap; justify-content: center; }
+      .asoebi-divider-vertical { width: 80px; height: 1px; }
+      .asoebi-order-row { flex-direction: column; gap: 28px; }
+      .asoebi-account { text-align: left; }
+      .asoebi-coordinators { flex-wrap: wrap; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       GALLERY
+    ═══════════════════════════════════════════════════════════════ */
+    #gallery {
+      background: var(--off-white);
+      padding-bottom: 80px;
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 100px 0 56px;
+    }
+    .gallery-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 505px;
+    }
+    .gallery-eyebrow {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--tourmaline);
+    }
+    .gallery-title {
+      font-family: var(--font-heading);
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 700;
+      color: var(--ruby);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+    }
+    .gallery-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--neutral-dark);
+      letter-spacing: 0.04em;
+    }
+    .gallery-hearts {
+      height: 56px;
+      width: auto;
+      opacity: 0.9;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* 3-column masonry grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .gallery-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .gallery-img-wrap {
+      overflow: hidden;
+      background: var(--nude);
+      flex-shrink: 0;
+    }
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-img-wrap:hover .gallery-img { transform: scale(1.04); }
+
+    /* Script overlay — see below for updated styles */
+
+    /* Script overlay — overlaps the last row of gallery images */
+    .gallery-script-wrap {
+      position: relative;
+      max-width: 1240px;
+      margin: -200px auto 0;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gallery-script {
+      font-family: var(--font-script);
+      font-size: clamp(28px, 3.5vw, 52px);
+      color: var(--tourmaline);
+      text-align: center;
+      line-height: 1.5;
+      transform: rotate(-4deg);
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 12px rgba(255,255,255,0.8);
+    }
+    .gallery-emoji {
+      font-size: 48px;
+      position: absolute;
+      right: 160px;
+      bottom: 50px;
+      transform: rotate(8deg);
+    }
+
+    @media (max-width: 900px) {
+      .gallery-header { flex-direction: column; gap: 20px; padding: 60px 20px 40px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
+      .gallery-col:last-child { display: none; }
+      .gallery-script-wrap { margin: -150px auto 0; height: 220px; }
+      .gallery-script { font-size: clamp(22px, 6vw, 36px); }
+      .gallery-emoji { right: 30px; bottom: 30px; font-size: 36px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       END BANNER (PRE-FOOTER)
+    ═══════════════════════════════════════════════════════════════ */
+    #end-banner {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .end-banner-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .end-banner-img {
+      width: 100%;
+      height: 186%;
+      object-fit: cover;
+      object-position: center center;
+      position: absolute;
+      top: -61%;
+      left: 0;
+    }
+    .end-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background:rgb(104 0 13 / 4%);
+    }
+    .end-banner-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      text-align: center;
+      max-width: 712px;
+      padding: 0 24px;
+    }
+    .end-banner-date {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--off-white);
+    }
+    .end-banner-names {
+      font-family: var(--font-script);
+      font-size: clamp(60px, 8vw, 110px);
+      color: #EECF65;
+      line-height: 1.0;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      margin-top: 18px;
+      margin-bottom: 18px;
+    }
+    .end-name-amp {
+      font-family: var(--font-heading);
+      font-size: 0.55em;
+      color: #EECF65;
+    }
+    .end-banner-location {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(249,246,242,0.70);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════ */
+    #footer {
+      background: var(--off-white);
+      padding: 56px 0 0;
+    }
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 80px 40px;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      gap: 0;
+      align-items: start;
+    }
+    .footer-logo-col {
+      display: flex;
+      align-items: flex-start;
+    }
+    .footer-logo {
+      height: 160px;
+      width: auto;
+      object-fit: contain;
+      /* deep ruby */
+      filter: invert(80%) sepia(90%) saturate(3000%) hue-rotate(338deg) brightness(55%) contrast(110%);
+    }
+    .footer-cols-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .footer-col-heading {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ruby);
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-link {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--ruby); }
+
+    .footer-contact-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-contact-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--neutral-dark);
+    }
+    .footer-contact-val {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      letter-spacing: 0.01em;
+    }
+
+    .footer-rsvp-deadline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--neutral-dark);
+      line-height: 1.6;
+    }
+    .footer-rsvp-msg {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+    .footer-rsvp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 48px;
+      background: linear-gradient(117deg, var(--ruby) 0%, var(--deep-ruby) 100%);
+      border: 0.5px solid rgba(231,84,128,0.5);
+      border-radius: 2px;
+      box-shadow: 0 4px 9px rgba(155,17,30,0.3);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--off-white);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-rsvp-btn:hover { opacity: 0.88; }
+
+    .footer-divider-wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+    .footer-divider {
+      height: 1px;
+      background: rgba(155,17,30,0.25);
+    }
+    .footer-bottom {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 80px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-credit {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      letter-spacing: 0.01em;
+    }
+    .footer-credit-name {
+      font-weight: 500;
+      color: var(--tourmaline);
+    }
+    .footer-top-link {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .footer-top-link:hover { color: var(--ruby); }
+
+    @media (max-width: 900px) {
+      #footer { padding: 48px 0 0; }
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding: 0 24px 40px;
+      }
+      .footer-logo-col { justify-content: flex-start; }
+      .footer-logo { height: 120px; }
+      .footer-cols-right { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-divider-wrap { padding: 0 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; padding: 20px 24px 28px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       REGISTRY
+    ═══════════════════════════════════════════════════════════════ */
+    #registry {
+      position: relative;
+      background: rgba(255, 177, 194, 0.30);
+      overflow: hidden;
+      padding: 100px 0 0;
+    }
+
+    /* Rotating hearts background decoration */
+    .registry-hearts-bg {
+      position: absolute;
+      top: 63px;
+      left: 50%;
+      transform: translateX(calc(-50% - 204px)) rotate(16.72deg);
+      width: 1093px;
+      height: 399px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    /* Heading block */
+    .registry-heading-wrap {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .registry-eyebrow {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--tourmaline);
+    }
+    .registry-title {
+      font-family: var(--font-heading);
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 700;
+      color: var(--ruby);
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+    }
+    .registry-intro {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--neutral-dark);
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      max-width: 505px;
+      text-align: center;
+    }
+
+    /* Cards row */
+    .registry-cards-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 100px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px 100px;
+    }
+
+    /* Each registry card */
+    .registry-card {
+      width: 335px;
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Dark card — Naira */
+    .registry-card--dark {
+      background: var(--deep-ruby);
+    }
+    /* Light card — Dollar */
+    .registry-card--light {
+      background: var(--off-white);
+    }
+
+    /* "MOST POPULAR" ribbon — rotated banner top-right */
+    .registry-ribbon-wrap {
+      position: absolute;
+      top: -37px;
+      right: -56px;
+      width: 186px;
+      height: 123px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+    .registry-ribbon {
+      background: #EECF65;
+      padding: 10px 40px;
+      width: 200px;
+      text-align: center;
+      transform: rotate(30.19deg);
+    }
+    .registry-ribbon p {
+      font-family: var(--font-body);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #BC9205;
+      white-space: nowrap;
+    }
+
+    /* Watermark icon bottom-left */
+    .registry-card-icon {
+      position: absolute;
+      left: -10px;
+      top: 224px;
+      width: 154px;
+      height: 154px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Card content top */
+    .registry-card-content {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 273px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 3;
+    }
+    .registry-card-icon-sm {
+      width: 30px;
+      height: 30px;
+    }
+    .registry-card-gift-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .registry-card--dark  .registry-card-gift-title { color: #EECF65; }
+    .registry-card--light .registry-card-gift-title { color: var(--ruby); }
+
+    .registry-card-desc {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      width: 273px;
+    }
+    .registry-card--dark  .registry-card-desc { color: var(--nude); }
+    .registry-card--light .registry-card-desc { color: var(--neutral-dark); }
+
+    /* Account details box — bottom of card */
+    .registry-account-box {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      width: 275px;
+      background: rgba(155,17,30,0.20);
+      border-radius: 4px;
+      padding: 15px;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3;
+    }
+    .registry-account-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .registry-card--dark  .registry-account-label { color: var(--off-white); }
+    .registry-card--light .registry-account-label { color: var(--deep-ruby); }
+
+    .registry-account-bank {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 17px;
+    }
+    .registry-card--dark  .registry-account-bank { color: #EECF65; }
+    .registry-card--light .registry-account-bank { color: var(--tourmaline); }
+
+    .registry-account-num,
+    .registry-account-name {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 17px;
+      letter-spacing: 0.04em;
+    }
+    .registry-card--dark  .registry-account-num,
+    .registry-card--dark  .registry-account-name  { color: var(--off-white); }
+    .registry-card--light .registry-account-num,
+    .registry-card--light .registry-account-name  { color: var(--deep-ruby); }
+
+    @media (max-width: 768px) {
+      #registry { padding: 60px 0 0; }
+      .registry-cards-row { flex-direction: column; gap: 32px; padding: 0 20px 60px; }
+      .registry-card { width: 100%; max-width: 335px; }
+      .registry-hearts-bg { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       GLOBAL MOBILE FIXES
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Our Story — stack vertically */
+      .story-inner {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+        gap: 40px;
+      }
+      .story-photos {
+        height: 420px;
+        width: 100%;
+      }
+      .frame-light-pink { left: 80px; width: 200px; height: 280px; }
+      .frame-deep-pink  { left: 0; top: 130px; width: 200px; height: 280px; }
+      .frame-ruby       { left: 130px; top: 190px; width: 200px; height: 280px; }
+      .story-heading    { font-size: clamp(22px, 6vw, 34px); }
+
+      /* Venue */
+      .venue-heading-wrap { padding: 60px 20px 40px; }
+      .venue-map-strip    { height: 360px; }
+      .venue-name-card    { top: 16px; left: 16px; padding: 12px; }
+      .venue-card-name    { font-size: 16px; }
+      .venue-info-bar     { bottom: 16px; flex-direction: column; gap: 16px; padding: 16px; white-space: normal; width: calc(100% - 32px); }
+      .venue-info-divider { display: none; }
+      .venue-info-col     { width: 100%; align-items: flex-start; }
+      .venue-bottom-row   { grid-template-columns: 1fr; margin: 20px 20px 60px; }
+      .venue-bottom-img-wrap { height: 200px; }
+
+      /* Asoebi */
+      #asoebi            { padding: 60px 20px 40px; }
+      .asoebi-inner      { padding: 32px 20px 0; }
+      .asoebi-title      { font-size: clamp(32px, 8vw, 48px); white-space: normal; }
+      .asoebi-fabrics-row { flex-direction: column; gap: 32px; }
+      .asoebi-fabric-group { flex-direction: column; align-items: center; }
+      .asoebi-fabric-info, .asoebi-fabric-info--right { width: 100%; text-align: center; align-items: center; }
+      .asoebi-swatch-wrap { width: 100%; max-width: 280px; }
+      .asoebi-divider-vertical { width: 60px; height: 1px; }
+      .asoebi-order-row   { flex-direction: column; gap: 24px; }
+      .asoebi-account     { text-align: left; }
+
+      /* Gallery */
+      #gallery { padding-bottom: 60px; }
+      .gallery-grid { padding: 0 20px; grid-template-columns: 1fr 1fr; }
+      .gallery-col:last-child { display: none; }
+      .gallery-img-wrap { height: 180px !important; }
+      .gallery-script-wrap { margin: -120px auto 0; height: 200px; }
+      .gallery-script { font-size: clamp(18px, 5vw, 28px); }
+      .gallery-emoji { display: none; }
+
+      /* End banner */
+      .end-banner-names { font-size: clamp(48px, 12vw, 80px); flex-wrap: wrap; justify-content: center; gap: 0.1em; }
+
+      /* Announcement */
+      #announcement { padding: 56px 20px 64px; }
+    }
+
   </style>
 </head>
 <body>
@@ -536,9 +1840,20 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <img src="images/logo group 2.png" alt="J&amp;O monogram" class="hero-monogram" />
-      <p class="hero-date">05 . 12 . 2026</p>
+      <p class="hero-date">05. 12. 2026</p>
       <a href="#rsvp" class="btn-rsvp">RSVP</a>
     </div>
+  </section>
+
+  <!-- ANNOUNCEMENT (after hero) -->
+  <section id="announcement" data-theme="light" data-nav-section="announcement">
+    <img src="images/love.png" alt="" class="announcement-hearts" />
+    <p class="announcement-body">
+      We're getting married! And we're so excited to celebrate our day with you. On this
+      page, you'll find everything you need to know — schedule, location, asoebi,
+      accommodation — and you can RSVP directly here. See you in December!
+    </p>
+    <p class="announcement-hashtag">#MadeForMe26</p>
   </section>
 
   <!-- OUR STORY -->
@@ -549,30 +1864,23 @@
 
       <!-- Photo stack -->
       <div class="story-photos">
-
-        <!-- Frame 1: light tourmaline, top-right, back, no caption -->
         <div class="story-photo-frame frame-light-pink">
           <div class="story-photo-inner">
             <img src="images/story_photo_light_pink.png" alt="Couple photo" />
           </div>
         </div>
-
-        <!-- Frame 2: deep pink, mid-left overlapping F1, "Our first Date" -->
         <div class="story-photo-frame frame-deep-pink">
           <div class="story-photo-inner">
             <img src="images/story_photo_deep_pink.png" alt="Our first date" />
           </div>
           <span class="story-photo-caption">Our first Date</span>
         </div>
-
-        <!-- Frame 3: ruby, bottom-right of F2, "Our engagement shoot" -->
         <div class="story-photo-frame frame-ruby">
           <div class="story-photo-inner">
             <img src="images/story_photo_ruby.png" alt="Our engagement shoot" />
           </div>
           <span class="story-photo-caption">Our engagement shoot</span>
         </div>
-
       </div>
 
       <!-- Text -->
@@ -589,30 +1897,500 @@
     </div>
   </section>
 
-  <!-- Placeholder sections -->
-  <section id="details"  data-theme="dark"  data-nav-section="details"  style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Details — coming soon</p>
+  
+  <!-- DETAILS — THE CELEBRATION -->
+  <section id="details" data-theme="dark" data-nav-section="details">
+
+    <!-- Background decorative elements -->
+    <div class="details-star-wrap" aria-hidden="true"><img src="images/star.png" class="details-star" alt="" /></div>
+    <div class="celebration-watermark" aria-hidden="true">
+      <img src="images/logo group 2.png" alt="" class="celebration-watermark-img" />
+    </div>
+
+    <!-- Header text top-left -->
+    <div class="celebration-header">
+      <p class="celebration-eyebrow">WHAT TO EXPECT</p>
+      <h2 class="celebration-title">The Celebration</h2>
+      <p class="celebration-date">Saturday, 05 December, 2026</p>
+    </div>
+
+    <!-- Cards row -->
+    <div class="celebration-cards-row">
+
+      <!-- LEFT CARD — Important Notes / For Our Guests -->
+      <div class="details-card details-card--left">
+        <p class="details-card-eyebrow">Important Notes</p>
+        <h3 class="details-card-title">For Our Guests</h3>
+        <div class="details-card-divider"></div>
+        <ul class="details-guest-list">
+          <li><span class="details-guest-icon">+</span><span class="details-guest-text">Please RSVP by September 30, 2026. Kindly note that seating is limited.</span></li>
+          <li><span class="details-guest-icon">+</span><span class="details-guest-text">We love your little ones, but this will be an adult-only celebration. Take the chance for a night off.</span></li>
+          <li><span class="details-guest-icon">+</span><span class="details-guest-text">Kindly keep mobile devices on silent during the religious ceremony.</span></li>
+          <li><span class="details-guest-icon">+</span><span class="details-guest-text">A professional photographer is on duty — please refrain from blocking designated camera zones.</span></li>
+          <li><span class="details-guest-icon">+</span><span class="details-guest-text">The couple requests an unplugged ceremony. Please be fully present with us.</span></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT CARD — Schedule of Events -->
+      <div class="details-card details-card--right">
+        <p class="details-card-eyebrow">SCHEDULE OF EVENTS</p>
+
+        <div class="schedule-events">
+          <!-- dot + dashed lines column -->
+          <div class="sch-dot-col">
+            <span class="sch-bullet"></span>
+            <span class="sch-dash" style="min-height:88px;"></span>
+            <span class="sch-bullet"></span>
+            <span class="sch-dash" style="min-height:64px;"></span>
+            <span class="sch-bullet"></span>
+          </div>
+
+          <!-- All events stacked -->
+          <div class="sch-events-col">
+
+            <div class="schedule-event">
+              <span class="sch-time">10:00am</span>
+              <div class="sch-content">
+                <p class="sch-event-title">Joining Ceremony</p>
+                <p class="sch-event-desc">Wedding ceremony. Exchange of vows and rings. Nuptial blessings.</p>
+                <p class="sch-event-venue">Marcellina's Place — Terrace</p>
+              </div>
+            </div>
+
+            <div class="schedule-event">
+              <span class="sch-time">3:00pm</span>
+              <div class="sch-content">
+                <p class="sch-event-title">Reception</p>
+                <p class="sch-event-desc">Cocktail hour, dinner service, and celebration. Music, dancing, and toasts.</p>
+                <p class="sch-event-venue">Marcellina's Place — Main Hall</p>
+              </div>
+            </div>
+
+            <div class="schedule-event">
+              <span class="sch-time">7:30pm</span>
+              <div class="sch-content">
+                <p class="sch-event-title">After Party</p>
+                <p class="sch-event-desc">Music, dancing, and toasts.</p>
+                <p class="sch-event-venue">Marcellina's Place — Main Hall</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </section>
-  <section id="asoebi"   data-theme="light" data-nav-section="asoebi"   style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Asoebi — coming soon</p>
+
+  <!-- THE VENUE -->
+  <section id="venue" data-theme="light" data-nav-section="venue">
+
+    <div class="venue-heading-wrap">
+      <p class="venue-eyebrow">WHERE WE CELEBRATE</p>
+      <h2 class="venue-title">The Venue</h2>
+    </div>
+
+    <div class="venue-map-strip">
+      <img src="images/hall.png" alt="Venue aerial view" class="venue-aerial-img" />
+
+      <div class="venue-name-card">
+        <svg class="venue-pin-icon" viewBox="0 0 24 24" fill="none" stroke="#2D2926" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"/>
+          <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"/>
+        </svg>
+        <div>
+          <p class="venue-card-name">Marcellina's Place</p>
+          <p class="venue-card-sub">IKEJA, LAGOS, NIGERIA</p>
+        </div>
+      </div>
+
+      <div class="venue-info-bar">
+        <div class="venue-info-col">
+          <p class="venue-info-label">ADDRESS</p>
+          <div class="venue-info-text">
+            <p>36 Isaac John Street,</p>
+            <p>Ikeja GRA,</p>
+            <p>Lagos, Nigeria</p>
+          </div>
+        </div>
+        <div class="venue-info-divider"></div>
+        <div class="venue-info-col">
+          <p class="venue-info-label">DIRECTIONS</p>
+          <div class="venue-info-text">
+            <p>20 minutes from LOS Airport</p>
+            <p>Next to Radisson Blu Hotel</p>
+            <p>Opposite Eye Foundation Hospital</p>
+            <p>Parking available</p>
+          </div>
+        </div>
+        <div class="venue-info-divider"></div>
+        <div class="venue-info-col">
+          <p class="venue-info-label">CEREMONY VENUE</p>
+          <div class="venue-info-text">
+            <p>Marcellina's Place — Main Hall</p>
+            <p>&amp; Terrace</p>
+            <p>Capacity: 350 guests</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="venue-bottom-row">
+      <div class="venue-bottom-img-wrap">
+        <img src="images/venue_googlemap.png" alt="Venue map" class="venue-bottom-img" />
+      </div>
+      <div class="venue-bottom-img-wrap">
+        <img src="images/hall_terrace.png" alt="Venue exterior" class="venue-bottom-img" />
+      </div>
+    </div>
+
   </section>
-  <section id="registry" data-theme="dark"  data-nav-section="registry" style="height:100vh;background:var(--neutral-dark);display:flex;align-items:center;justify-content:center;">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--off-white);">Registry — coming soon</p>
+
+  <!-- ASOEBI DETAILS -->
+  <section id="asoebi" data-theme="light" data-nav-section="asoebi">
+    <div class="asoebi-bg-pattern" id="asoebiBg"></div>
+
+    <div class="asoebi-inner">
+
+      <!-- Heading -->
+      <div class="asoebi-heading-wrap">
+        <p class="asoebi-eyebrow">ATTIRE</p>
+        <h2 class="asoebi-title">Asoebi Details</h2>
+      </div>
+
+      <p class="asoebi-intro">For those choosing to honor our celebration in traditional Aso-ebi, kindly find the details below. Fabrics are available for purchase through our designated coordinator.</p>
+
+      <!-- Fabric cards row -->
+      <div class="asoebi-fabrics-row">
+
+        <!-- Men's option -->
+        <div class="asoebi-fabric-group asoebi-fabric-group--left">
+          <div class="asoebi-swatch-wrap">
+            <img src="images/mens_fabric.png" alt="Men's Asoebi fabric" class="asoebi-swatch-img" />
+          </div>
+          <div class="asoebi-fabric-info">
+            <div class="asoebi-fabric-item">
+              <p class="asoebi-fabric-name">Men's Fabric &amp; Cap</p>
+              <p class="asoebi-fabric-price">&#8358;98,000 / 10 yards</p>
+            </div>
+            <div class="asoebi-fabric-item">
+              <p class="asoebi-fabric-name">Men's Fabric &amp; Cap</p>
+              <p class="asoebi-fabric-price">&#8358;62,000 / 5 yards</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gold divider -->
+        <div class="asoebi-divider-vertical"></div>
+
+        <!-- Women's option -->
+        <div class="asoebi-fabric-group asoebi-fabric-group--right">
+          <div class="asoebi-fabric-info asoebi-fabric-info--right">
+            <div class="asoebi-fabric-item">
+              <p class="asoebi-fabric-name">Women's Fabric, Lining &amp; Gele</p>
+              <p class="asoebi-fabric-price">&#8358;120,000 / 4 yards</p>
+            </div>
+          </div>
+          <div class="asoebi-swatch-wrap">
+            <img src="images/womens_fabric.png" alt="Women's Asoebi fabric" class="asoebi-swatch-img" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Gold horizontal rule -->
+      <div class="asoebi-hr"></div>
+
+      <!-- Order info row -->
+      <div class="asoebi-order-row">
+        <!-- Coordinators -->
+        <div class="asoebi-order-left">
+          <p class="asoebi-order-desc">To place your fabric order, kindly make payment to account details, and contact any of our Asoebi coordinators for delivery details:</p>
+          <div class="asoebi-coordinators">
+            <p class="asoebi-coordinator-name">Divine &middot; +234 705 030 8572</p>
+            <span class="asoebi-coord-sep"></span>
+            <p class="asoebi-coordinator-name">Gift &middot; +234 903 830 9099</p>
+          </div>
+        </div>
+        <!-- Account details -->
+        <div class="asoebi-account">
+          <p class="asoebi-account-label">ACCOUNT DETAILS</p>
+          <div class="asoebi-account-detail">
+            <p class="asoebi-account-bank">Ecobank</p>
+            <p class="asoebi-account-num">2070053444</p>
+            <p class="asoebi-account-name">Isioma Joy Olayanju</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="asoebi-deadline">Orders close September 30, 2026</p>
+
+    </div>
+
   </section>
-  <section id="gallery"  data-theme="light" data-nav-section="gallery"  style="height:100vh;background:var(--off-white);display:flex;align-items:center;justify-content:center;">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">Gallery — coming soon</p>
+  <!-- REGISTRY -->
+  <section id="registry" data-theme="light" data-nav-section="registry">
+
+    <!-- Hearts SVG background -->
+    <svg class="registry-hearts-bg" viewBox="0 0 1092.65 401.322" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g opacity="0.2">
+        <path d="M181.669 85.9976C214.738 85.9976 241.936 111.07 245.21 143.204C245.428 145.345 245.538 147.52 245.538 149.721C245.538 198.172 208.243 230.613 173.583 260.762C152.856 278.792 133.072 296.001 122.769 315.324C112.467 296 92.681 278.789 71.9533 260.759C37.2939 230.61 0 198.169 0 149.721C0 147.52 0.110493 145.345 0.328998 143.204C3.59962 111.07 30.8003 85.9976 63.8722 85.9976C90.3755 85.9976 113.1 102.104 122.769 125.038C132.438 102.104 155.163 85.9976 181.669 85.9976Z" fill="url(#rg1)"/>
+        <path d="M649.397 0C707.269 0 754.865 43.8764 760.594 100.111C760.976 103.858 761.169 107.665 761.169 111.515C761.169 196.305 695.902 253.078 635.247 305.838C598.975 337.39 564.352 367.506 546.323 401.322C528.293 367.504 493.669 337.385 457.395 305.832C396.741 253.072 331.477 196.301 331.477 111.515C331.477 107.665 331.67 103.858 332.053 100.111C337.776 43.8764 385.377 0 443.253 0C489.634 0 529.402 28.1863 546.323 68.3202C563.244 28.1863 603.012 0 649.397 0Z" fill="url(#rg2)"/>
+        <path d="M1028.78 85.9976C1061.85 85.9976 1089.04 111.07 1092.32 143.204C1092.54 145.345 1092.65 147.52 1092.65 149.721C1092.65 198.172 1055.35 230.613 1020.69 260.762C999.964 278.792 980.179 296.001 969.877 315.324C959.574 296 939.789 278.789 919.061 260.759C884.402 230.61 847.108 198.169 847.108 149.721C847.108 147.52 847.218 145.345 847.437 143.204C850.707 111.07 877.908 85.9976 910.98 85.9976C937.483 85.9976 960.208 102.104 969.877 125.038C979.546 102.104 1002.27 85.9976 1028.78 85.9976Z" fill="url(#rg3)"/>
+      </g>
+      <defs>
+        <radialGradient id="rg1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(200.281 217.824 -223.487 181.189 0.498 110.85)"><stop stop-color="#FFEDEB"/><stop offset="1" stop-color="#E75480"/></radialGradient>
+        <radialGradient id="rg2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(350.492 381.192 -391.102 317.08 332.348 43.492)"><stop stop-color="#FFEDEB"/><stop offset="1" stop-color="#E75480"/></radialGradient>
+        <radialGradient id="rg3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(200.281 217.824 -223.487 181.189 847.605 110.85)"><stop stop-color="#FFEDEB"/><stop offset="1" stop-color="#E75480"/></radialGradient>
+      </defs>
+    </svg>
+
+    <!-- Heading -->
+    <div class="registry-heading-wrap">
+      <p class="registry-eyebrow">GIFTS &amp; REGISTRY</p>
+      <h2 class="registry-title">Registry</h2>
+      <p class="registry-intro">Your presence at our celebration is the greatest gift of all. For those who wish to honor us further, we have prepared the following options.</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="registry-cards-row">
+
+      <!-- Card 1 — Naira (dark, MOST POPULAR) -->
+      <div class="registry-card registry-card--dark">
+        <!-- Ribbon -->
+        <div class="registry-ribbon-wrap">
+          <div class="registry-ribbon"><p>MOST POPULAR</p></div>
+        </div>
+
+        <!-- Watermark wallet icon -->
+        <div class="registry-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 154.5 154.5" fill="none" style="width:100%;height:100%;opacity:0.3;mix-blend-mode:overlay;">
+            <path d="M112.656 75.3652L149.337 67.4922L135.825 4.54627L22.5313 28.8671L29.4645 61.1576H22.5313V151.283H112.656V119.095H119.094V93.3452H112.656V75.3652Z" fill="#F9F6F2"/>
+            <path d="M113.796 9.27781L140.556 26.5754L135.825 4.54627L113.796 9.27781Z" fill="#EECF65"/>
+            <path d="M22.5313 61.156H3.21878V151.281H22.5313V61.156Z" fill="#EECF65"/>
+            <path d="M112.656 138.406H22.5313V151.281H112.656V138.406Z" fill="#EECF65"/>
+            <path d="M112.656 119.094V151.281H3.21878V61.156H112.656V93.3435" stroke="#BC9205" stroke-width="6.4375" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M119.094 119.094H90.125L80.4688 106.219L90.125 93.344H119.094V119.094Z" stroke="#BC9205" stroke-width="6.4375" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M29.4645 61.1576L22.5313 28.8671L135.825 4.54627L149.337 67.4922L112.656 75.3652" stroke="#BC9205" stroke-width="6.4375" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="registry-card-content">
+          <!-- small icon -->
+          <svg class="registry-card-icon-sm" viewBox="0 0 30 30" fill="none">
+            <path d="M21.875 14.6341L28.9975 13.1053L26.3738 0.882812L4.375 5.60531L5.72125 11.8753H4.375V29.3753H21.875V23.1253H23.125V18.1253H21.875V14.6341Z" fill="#F9F6F2"/>
+            <path d="M21.875 23.125V29.375H0.625V11.875H21.875V18.125" stroke="#BC9205" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M23.125 23.125H17.5L15.625 20.625L17.5 18.125H23.125V23.125Z" stroke="#BC9205" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="registry-card-gift-title">
+            <p>Cash Gift</p>
+            <p>(&#8358; Naira)</p>
+          </div>
+          <p class="registry-card-desc">A monetary gift is always warmly welcomed. Your generosity supports the beginning of our new life together.</p>
+        </div>
+
+        <!-- Account box -->
+        <div class="registry-account-box">
+          <p class="registry-account-label">Account Details</p>
+          <p class="registry-account-bank">ECOBANK</p>
+          <p class="registry-account-num">2070053444</p>
+          <p class="registry-account-name">ISIOMA JOY OLAYANJU</p>
+        </div>
+      </div>
+
+      <!-- Card 2 — Dollar (light) -->
+      <div class="registry-card registry-card--light">
+
+        <!-- Watermark beach icon -->
+        <div class="registry-card-icon" style="opacity:0.2;" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25.3219 24.3589C25.5769 24.4589 25.8719 24.2408 25.7969 23.977C24.7188 20.192 21.6131 17.4995 15.3125 17.4995C9.03876 17.4995 5.56001 20.1689 4.30001 23.9276C4.21251 24.1908 4.50439 24.4214 4.76439 24.3258C5.40124 24.0912 6.08463 24.0111 6.75846 24.0919C7.43228 24.1728 8.07733 24.4123 8.64064 24.7908C9.24501 25.2008 9.93564 25.4033 10.625 25.4033C11.333 25.4029 12.0244 25.1895 12.6094 24.7908C13.3162 24.3158 14.1485 24.0622 15 24.0622C15.8516 24.0622 16.6838 24.3158 17.3906 24.7908C17.995 25.2008 18.6856 25.4033 19.375 25.4033C20.083 25.4029 20.7744 25.1895 21.3594 24.7908C21.9357 24.4038 22.5974 24.1624 23.2875 24.0872C23.9777 24.0121 24.6758 24.1049 25.3219 24.3589Z" fill="#FFB1C2"/>
+            <path d="M22.5 6.875C16.6319 6.875 11.875 11.6319 11.875 17.5V17.7731C12.9064 17.5889 13.9523 17.4975 15 17.5C15.625 17.5 16.2375 17.5313 16.8331 17.5913V17.5C16.8331 11.6319 19.3706 6.875 22.5 6.875Z" fill="#FFEDEB"/>
+            <path d="M4.375 23.7495C5.23 20.2026 9.66125 17.4995 15 17.4995C20.3387 17.4995 24.77 20.2026 25.625 23.7495" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.875 6.875C24.8569 6.875 27.5 9.31688 27.5 12.5" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.9625 13.125C23.57 11.3919 23.4819 8.60813 21.875 6.875" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.8688 1.65479C22.6425 2.67854 22.8988 5.10104 21.875 6.87479" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.875 6.87471C19.9969 4.04971 16.6525 3.50221 14.375 5.83159" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.875 17.5C11.875 11.6319 16.6319 6.875 22.5 6.875C19.3706 6.875 16.8331 11.6319 16.8331 17.5" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1.875 28.1247C3.05625 28.1247 4.2375 27.7772 5.2625 27.081C5.55522 26.8868 5.89871 26.7832 6.25 26.7832C6.60129 26.7832 6.94478 26.8868 7.2375 27.081C8.23651 27.7606 9.41674 28.1242 10.625 28.1247C11.8063 28.1247 12.9875 27.7772 14.0125 27.081C14.3052 26.8868 14.6487 26.7832 15 26.7832C15.3513 26.7832 15.6948 26.8868 15.9875 27.081C16.9865 27.7606 18.1667 28.1242 19.375 28.1247C20.5563 28.1247 21.7375 27.7772 22.7625 27.081C23.0552 26.8868 23.3987 26.7832 23.75 26.7832C24.1013 26.7832 24.4448 26.8868 24.7375 27.081C25.7365 27.7606 26.9167 28.1242 28.125 28.1247" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="registry-card-content">
+          <svg class="registry-card-icon-sm" viewBox="0 0 27 27" fill="none">
+            <path d="M25.3219 24.3589C25.5769 24.4589 25.8719 24.2408 25.7969 23.977C24.7188 20.192 21.6131 17.4995 15.3125 17.4995C9.03876 17.4995 5.56001 20.1689 4.30001 23.9276C4.21251 24.1908 4.50439 24.4214 4.76439 24.3258C5.40124 24.0912 6.08463 24.0111 6.75846 24.0919C7.43228 24.1728 8.07733 24.4123 8.64064 24.7908C9.24501 25.2008 9.93564 25.4033 10.625 25.4033C11.333 25.4029 12.0244 25.1895 12.6094 24.7908C13.3162 24.3158 14.1485 24.0622 15 24.0622C15.8516 24.0622 16.6838 24.3158 17.3906 24.7908C17.995 25.2008 18.6856 25.4033 19.375 25.4033C20.083 25.4029 20.7744 25.1895 21.3594 24.7908C21.9357 24.4038 22.5974 24.1624 23.2875 24.0872C23.9777 24.0121 24.6758 24.1049 25.3219 24.3589Z" fill="#FFB1C2"/>
+            <path d="M22.5 6.875C16.6319 6.875 11.875 11.6319 11.875 17.5V17.7731C12.9064 17.5889 13.9523 17.4975 15 17.5C15.625 17.5 16.2375 17.5313 16.8331 17.5913V17.5C16.8331 11.6319 19.3706 6.875 22.5 6.875Z" fill="#FFEDEB"/>
+            <path d="M4.375 23.7495C5.23 20.2026 9.66125 17.4995 15 17.4995C20.3387 17.4995 24.77 20.2026 25.625 23.7495" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.875 6.875C24.8569 6.875 27.5 9.31688 27.5 12.5" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.9625 13.125C23.57 11.3919 23.4819 8.60813 21.875 6.875" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.8688 1.65479C22.6425 2.67854 22.8988 5.10104 21.875 6.87479" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.875 6.87471C19.9969 4.04971 16.6525 3.50221 14.375 5.83159" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.875 17.5C11.875 11.6319 16.6319 6.875 22.5 6.875C19.3706 6.875 16.8331 11.6319 16.8331 17.5" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1.875 28.1247C3.05625 28.1247 4.2375 27.7772 5.2625 27.081C5.55522 26.8868 5.89871 26.7832 6.25 26.7832C6.60129 26.7832 6.94478 26.8868 7.2375 27.081C8.23651 27.7606 9.41674 28.1242 10.625 28.1247C11.8063 28.1247 12.9875 27.7772 14.0125 27.081C14.3052 26.8868 14.6487 26.7832 15 26.7832C15.3513 26.7832 15.6948 26.8868 15.9875 27.081C16.9865 27.7606 18.1667 28.1242 19.375 28.1247C20.5563 28.1247 21.7375 27.7772 22.7625 27.081C23.0552 26.8868 23.3987 26.7832 23.75 26.7832C24.1013 26.7832 24.4448 26.8868 24.7375 27.081C25.7365 27.7606 26.9167 28.1242 28.125 28.1247" stroke="#9B111E" stroke-width="0.624971" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="registry-card-gift-title">
+            <p>Cash Gift</p>
+            <p>($ Dollar)</p>
+          </div>
+          <p class="registry-card-desc">A monetary gift is always warmly welcomed. Your generosity supports the beginning of our new life together.</p>
+        </div>
+
+        <!-- Account box -->
+        <div class="registry-account-box">
+          <p class="registry-account-label">Account Details</p>
+          <p class="registry-account-bank">ECOBANK</p>
+          <p class="registry-account-num">2070049054</p>
+          <p class="registry-account-name">ISIOMA JOY OLAYANJU</p>
+        </div>
+      </div>
+
+    </div>
   </section>
-  <section id="rsvp"     data-theme="light" data-nav-section="rsvp"     style="height:100vh;background:var(--nude);display:flex;align-items:center;justify-content:center;">
-    <p style="font-family:var(--font-heading);font-size:32px;color:var(--neutral-dark);">RSVP — coming soon</p>
+
+  <!-- GALLERY -->
+  <section id="gallery" data-theme="light" data-nav-section="gallery">
+
+    <!-- Section heading — top left -->
+    <div class="gallery-header">
+      <div class="gallery-header-text">
+        <p class="gallery-eyebrow">CAPTURED MOMENTS</p>
+        <h2 class="gallery-title">Gallery</h2>
+        <p class="gallery-desc">A glimpse into our celebration and the beautiful moments we cherish together.</p>
+      </div>
+      <!-- Heart decoration top right — hearts.svg or image -->
+      <img src="images/love.png" alt="" class="gallery-hearts" aria-hidden="true" />
+    </div>
+
+    <!-- Masonry-style photo grid — 3 columns -->
+    <div class="gallery-grid">
+      <!-- col 1 -->
+      <div class="gallery-col">
+        <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_1.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_5.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_8.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_9.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:369px;"><img src="images/gallery_11.png" alt="" class="gallery-img" /></div>
+      </div>
+      <!-- col 2 -->
+      <div class="gallery-col">
+        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_10.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_2.png" alt="" class="gallery-img" /></div>
+      </div>
+      <!-- col 3 -->
+      <div class="gallery-col">
+        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:479px;"><img src="images/gallery_7.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:723px;"><img src="images/gallery/gallery12.png" alt="" class="gallery-img" /></div>
+      </div>
+    </div>
+
+    <!-- Cursive overlay text at bottom -->
+    <div class="gallery-script-wrap" aria-hidden="true">
+      <p class="gallery-script">These memories will last a lifetime</p>
+      <p class="gallery-script">Looking forward to forever</p>
+      <span class="gallery-emoji">💋</span>
+    </div>
+
   </section>
+
+  <!-- PRE-FOOTER END BANNER -->
+  <section id="end-banner" data-theme="dark" data-nav-section="end-banner">
+    <div class="end-banner-bg">
+      <img src="images/end banner.png" alt="" class="end-banner-img" aria-hidden="true" />
+    </div>
+    <div class="end-banner-overlay"></div>
+    <div class="end-banner-content">
+      <p class="end-banner-date">December 05, 2026</p>
+      <p class="end-banner-names">
+        <span class="end-name-script">Isioma</span>
+        <span class="end-name-amp">&amp;</span>
+        <span class="end-name-script">Emmanuel</span>
+      </p>
+      <p class="end-banner-location">Lagos, Nigeria</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer" data-theme="light">
+    <div class="footer-inner">
+
+      <!-- Logo column -->
+      <div class="footer-logo-col">
+        <img src="images/logo group.png" alt="J&amp;O" class="footer-logo" />
+      </div>
+
+      <!-- Right: Nav / Contact / RSVP -->
+      <div class="footer-cols-right">
+
+        <!-- Nav column -->
+        <div class="footer-col">
+          <p class="footer-col-heading">NAVIGATE</p>
+          <ul class="footer-links">
+            <li><a href="#our-story" class="footer-link">Our Story</a></li>
+            <li><a href="#details"   class="footer-link">Wedding Details</a></li>
+            <li><a href="#venue"     class="footer-link">The Venue</a></li>
+            <li><a href="#asoebi"    class="footer-link">Asoebi</a></li>
+            <li><a href="#registry"  class="footer-link">Registry</a></li>
+            <li><a href="#gallery"   class="footer-link">Gallery</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact column -->
+        <div class="footer-col">
+          <p class="footer-col-heading">CONTACT</p>
+          <div class="footer-contact-group">
+            <p class="footer-contact-label">General Enquiries</p>
+            <p class="footer-contact-val">theisiomaoj@gmail.com</p>
+          </div>
+          <div class="footer-contact-group">
+            <p class="footer-contact-label">Asoebi Orders</p>
+            <p class="footer-contact-val">+234 705 030 8572</p>
+            <p class="footer-contact-val">+234 903 830 9099</p>
+          </div>
+          <div class="footer-contact-group">
+            <p class="footer-contact-label">Venue</p>
+            <p class="footer-contact-val">Marcellina's Place, Ikeja,</p>
+            <p class="footer-contact-val">Lagos</p>
+          </div>
+        </div>
+
+        <!-- RSVP reminder column -->
+        <div class="footer-col">
+          <p class="footer-col-heading">RSVP REMINDER</p>
+          <p class="footer-rsvp-deadline">Please respond by<br>September 30, 2026</p>
+          <p class="footer-rsvp-msg">We look forward to sharing this precious day with you and those you hold dear.</p>
+          <a href="#rsvp" class="footer-rsvp-btn">RSVP</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Divider line -->
+    <div class="footer-divider-wrap">
+      <div class="footer-divider"></div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-credit">Made with love &middot; <span class="footer-credit-name">Isioma Oj</span> &middot; Lagos, Nigeria</p>
+      <a href="#hero" class="footer-top-link">Back to top</a>
+    </div>
+  </footer>
 
   <script>
-    /* ── Background image via JS to avoid CSS escape/path issues ── */
+    /* Background image */
     document.getElementById('storyBg').style.backgroundImage = 'url("images/our-story.png")'
+    const asoebiBg = document.getElementById('asoebiBg');
+    if (asoebiBg) asoebiBg.style.backgroundImage = 'url("images/our-story.png")'
 
-    /* ── Navbar state + active link highlighting ─────────────────── */
-    const navbar  = document.getElementById('navbar');
-    const heroSec = document.getElementById('hero');
+    /* Navbar state + hamburger color + active link */
+    const navbar     = document.getElementById('navbar');
+    const heroSec    = document.getElementById('hero');
     const allNavLinks = document.querySelectorAll('.nav-link[data-section]');
 
     function updateNavbar() {
@@ -643,7 +2421,7 @@
     window.addEventListener('scroll', updateNavbar, { passive: true });
     updateNavbar();
 
-    /* ── Mobile menu ─────────────────────────────────────────────── */
+    /* Mobile menu */
     const hamburger  = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
