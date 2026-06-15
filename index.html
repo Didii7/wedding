@@ -320,24 +320,25 @@
     .story-inner {
       position: relative;
       z-index: 1;
-      width: 100%;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0 48px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 580px 1fr;
       align-items: center;
-      
+      gap: 60px;
     }
 
     .story-photos {
       position: relative;
-      height: 700px;
+      height: 680px;
       overflow: visible;
+      flex-shrink: 0;
     }
 
     .story-photo-frame {
       position: absolute;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+      box-shadow: 0 -4px 12px -3px rgba(0,0,0,0.15);
       overflow: hidden;
     }
     .story-photo-inner {
@@ -359,7 +360,7 @@
       left: 0; right: 0;
       text-align: center;
       font-family: 'Brilliant', 'Pinyon Script', cursive;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 400;
       color: var(--off-white);
       z-index: 2;
@@ -367,32 +368,30 @@
       opacity: 0.88;
     }
 
+    /* Frame sizes match Figma: 357px wide */
     .frame-light-pink {
-      top: 40px; left: 140px; right: auto;
-      width: 313px; height: 469px;
+      top: 40px; left: 170px;
+      width: 313px; height: 470px;
       background: var(--light-tourmaline);
-      padding: 11px 11px 55px;
+      padding: 10px 10px 50px;
       z-index: 1;
     }
-    .frame-light-pink .story-photo-inner { background: #999; }
 
     .frame-deep-pink {
-      top: 220px; left: 0;
-      width: 313px; height: 512px;
+      top: 194px; left: 0;
+      width: 313px; height: 470px;
       background: var(--tourmaline);
-      padding: 11px 11px 60px;
+      padding: 10px 10px 54px;
       z-index: 2;
     }
-    .frame-deep-pink .story-photo-inner { background: #777; }
 
     .frame-ruby {
-      top: 315px; left: 220px;
-      width: 313px; height: 512px;
+      top: 275px; left: 220px;
+      width: 313px; height: 470px;
       background: var(--ruby);
-      padding: 11px 11px 60px;
+      padding: 10px 10px 54px;
       z-index: 3;
     }
-    .frame-ruby .story-photo-inner { background: #444; }
 
     .story-text { display: flex; flex-direction: column; gap: 16px; }
 
@@ -557,8 +556,8 @@
       padding: 60px 80px 80px;
       position: relative;
       z-index: 5;
-      align-items: end;
-      max-width: 100%;
+      align-items: start;
+      max-width: 1280px;
       margin: 0 auto;
     }
 
@@ -638,10 +637,6 @@
       display: flex;
       flex-direction: column;
       gap: 48px;
-      max-width: 100%;
-    }
-    .details-card--right .schedule-events {
-      max-width: 75%;
     }
 
     .details-card--right .details-card-eyebrow {
@@ -652,11 +647,12 @@
       margin-bottom: 0;
     }
 
-    /* Schedule container: dot-col + events stacked */
+    /* Constrain schedule content so it doesn't stretch full card width */
     .schedule-events {
       display: flex;
       gap: 28px;
       align-items: stretch;
+      max-width: 75%;
     }
 
     /* Thin column holding all bullets and dashes */
@@ -895,15 +891,14 @@
       flex-shrink: 0;
     }
 
-    .venue-map-iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
+    /* Two bottom image panels */
+    .venue-bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1240px;
+      margin: 40px auto 100px;
+      gap: 20px;
     }
-
     .venue-bottom-img-wrap {
       border: 1px solid #EECF65;
       height: 300px;
@@ -916,15 +911,14 @@
       display: block;
     }
 
-    @media (max-width: 900px) {
-      .venue-map-strip { height: 420px; }
-      .venue-info-bar { flex-wrap: wrap; white-space: normal; width: 90%; justify-content: center; }
-      .venue-info-col { width: 160px; }
-      .venue-info-divider { display: none; }
-      .venue-bottom-row { grid-template-columns: 1fr; }
-      .venue-bottom-img-wrap { height: 220px; }
-    }
-
+    .venue-map-embed { padding: 0; overflow: hidden; }
+    .venue-map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .venue-info-bar { flex-wrap: wrap; white-space: normal; width: 90%; justify-content: center; }
+    .venue-info-col { width: 160px; }
+    .venue-info-divider { display: none; }
+    .venue-bottom-row { grid-template-columns: 1fr; }
+    .venue-bottom-img-wrap { height: 220px; }
+    
     /* ═══════════════════════════════════════════════════════════════
        ASOEBI DETAILS
     ═══════════════════════════════════════════════════════════════ */
@@ -956,8 +950,8 @@
       border: 2px solid #EECF65;
       padding: 56px 72px 0;
       overflow: hidden;
-      backdrop-filter: blur(15px) saturate(120%);
-      -webkit-backdrop-filter: blur(15px) saturate(120%);
+      backdrop-filter: blur(15px) saturate(130%);
+      -webkit-backdrop-filter: blur(15px) saturate(130%);
     }
 
     /* Heading */
@@ -1229,66 +1223,9 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto;
       gap: 8px;
       max-width: 1240px;
       margin: 0 auto;
-    }
-    /* Col 1 — unchanged, spans full height as a sub-grid column */
-    .gallery-col-1 {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      grid-column: 1;
-      grid-row: 1 / 3;
-    }
-    /* Col 2 top section */
-    .gallery-col-2-top {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      grid-column: 2;
-      grid-row: 1;
-    }
-    /* Wide image spanning cols 2–3 */
-    .gallery-wide-wrap {
-      grid-column: 2 / 4;
-      grid-row: 2;
-      overflow: hidden;
-      background: var(--nude);
-      flex-shrink: 0;
-    }
-    .gallery-wide-wrap .gallery-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-    .gallery-wide-wrap:hover .gallery-img { transform: scale(1.04); }
-    /* Col 3 top section (above the wide image) */
-    .gallery-col-3-top {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      grid-column: 3;
-      grid-row: 1;
-    }
-    /* Col 3 bottom — portrait below the wide image */
-    .gallery-col-3-bottom {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      grid-column: 3;
-      grid-row: 3;
-    }
-    /* Row 3 for col 2 if needed */
-    .gallery-col-2-bottom {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      grid-column: 2;
-      grid-row: 3;
     }
     .gallery-col {
       display: flex;
@@ -1309,12 +1246,41 @@
     }
     .gallery-img-wrap:hover .gallery-img { transform: scale(1.04); }
 
-    /* Script overlay — sits in the gap area between col2 top content and the wide image */
+    /* Wide image that spans col 2 and col 3 */
+    .gallery-wide-row {
+      grid-column: 2 / 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .gallery-wide-img {
+      grid-column: 1 / 3;
+      height: 340px;
+      overflow: hidden;
+      background: var(--nude);
+    }
+    .gallery-wide-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-wide-img:hover img { transform: scale(1.04); }
+
+    /* Bottom row in cols 2+3 after wide image */
+    .gallery-bottom-pair {
+      display: contents;
+    }
+
+    /* Script overlay — see below for updated styles */
+
+    /* Script overlay */
     .gallery-script-wrap {
       position: relative;
       max-width: 1240px;
-      margin: -180px auto 0;
-      height: 240px;
+      margin: -60px auto 0;
+      height: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1337,22 +1303,16 @@
       font-size: 48px;
       position: absolute;
       right: 80px;
-      bottom: 40px;
+      bottom: 20px;
       transform: rotate(8deg);
     }
 
     @media (max-width: 900px) {
       .gallery-header { flex-direction: column; gap: 20px; padding: 60px 20px 40px; }
       .gallery-grid { grid-template-columns: 1fr 1fr; padding: 0 20px; }
-      .gallery-col-1 { grid-column: 1; grid-row: 1 / 3; }
-      .gallery-col-2-top { grid-column: 2; grid-row: 1; }
-      .gallery-wide-wrap { grid-column: 2; grid-row: 2; height: 200px !important; }
-      .gallery-col-3-top { display: none; }
-      .gallery-col-3-bottom { display: none; }
-      .gallery-col-2-bottom { display: none; }
-      .gallery-script-wrap { margin: -140px auto 0; height: 200px; }
+      .gallery-script-wrap { margin: -40px auto 0; height: 180px; }
       .gallery-script { font-size: clamp(22px, 6vw, 36px); }
-      .gallery-emoji { right: 20px; bottom: 20px; font-size: 32px; }
+      .gallery-emoji { right: 30px; bottom: 20px; font-size: 36px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1509,17 +1469,6 @@
       color: var(--neutral-dark);
       letter-spacing: 0.01em;
     }
-    .footer-contact-link {
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--deep-ruby);
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      transition: color 0.2s;
-      display: block;
-    }
-    .footer-contact-link:hover { color: var(--ruby); }
 
     .footer-rsvp-deadline {
       font-family: var(--font-body);
@@ -1584,10 +1533,6 @@
       font-weight: 500;
       color: var(--tourmaline);
     }
-    .footer-credit-studio {
-      font-weight: 500;
-      color: var(--ruby);
-    }
     .footer-top-link {
       font-family: var(--font-body);
       font-size: 12px;
@@ -1597,7 +1542,16 @@
       letter-spacing: 0.01em;
       transition: color 0.2s;
     }
-    .footer-top-link:hover { color: var(--ruby); }
+    .footer-credit-studio {
+      font-weight: 500;
+      color: var(--ruby);
+    }
+    .footer-contact-link {
+      color: var(--deep-ruby);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-contact-link:hover { color: var(--ruby); }
 
     @media (max-width: 900px) {
       #footer { padding: 48px 0 0; }
@@ -1842,13 +1796,13 @@
         gap: 40px;
       }
       .story-photos {
-        height: 480px;
+        height: 420px;
         width: 100%;
-        margin-bottom: 80px;
+        margin-bottom: 30px;
       }
-      .frame-light-pink { left: 80px; width: 220px; height: 330px; }
-      .frame-deep-pink  { left: 0; top: 150px; width: 220px; height: 360px; }
-      .frame-ruby       { left: 140px; top: 220px; width: 220px; height: 360px; }
+      .frame-light-pink { left: 80px; top: 20px; width: 200px; height: 300px; }
+      .frame-deep-pink  { left: 0; top: 110px; width: 200px; height: 300px; }
+      .frame-ruby       { left: 120px; top: 165px; width: 200px; height: 300px; }
       .story-heading    { font-size: 32px; }
 
       /* Venue */
@@ -1878,9 +1832,9 @@
       #gallery { padding-bottom: 60px; }
       .gallery-grid { padding: 0 20px; }
       .gallery-img-wrap { height: 180px !important; }
-      .gallery-script-wrap { margin: -120px auto 0; height: 200px; }
+      .gallery-script-wrap { margin: -40px auto 0; height: 180px; }
       .gallery-script { font-size: clamp(18px, 5vw, 28px); }
-      .gallery-emoji { right: 20px; bottom: 20px; font-size: 28px; }
+      .gallery-emoji { right: 20px; bottom: 10px; font-size: 28px; }
 
       /* End banner */
       .end-banner-names { font-size: clamp(48px, 12vw, 80px); flex-wrap: wrap; justify-content: center; gap: 0.1em; }
@@ -1976,7 +1930,7 @@
       </div>
 
       <!-- Text -->
-      <div class="col story-text">
+      <div class="story-text">
         <p class="story-eyebrow">Our Story</p>
         <h2 class="story-heading">From A Random<br>Instagram Dm To A<br>Lifetime Together</h2>
         <p class="story-body">
@@ -2120,16 +2074,10 @@
     </div>
 
     <div class="venue-bottom-row">
-      <div class="venue-bottom-img-wrap">
+      <div class="venue-bottom-img-wrap venue-map-embed">
         <iframe
-          class="venue-bottom-img"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.0905!2d3.3488!3d6.5986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b9228e1c3e8e9%3A0x5a6f0c6f0c6f0c6f!2s36%20Isaac%20John%20St%2C%20Ikeja%20GRA%2C%20Lagos!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
-          style="width:100%;height:100%;border:0;display:block;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Marcellina's Place — Ikeja GRA, Lagos"
-        ></iframe>
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4087862854674!2d3.3481!3d6.5958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b9226e9938b1b%3A0x58f4dc7a3f3e2eb5!2s36%20Isaac%20John%20Street%2C%20Ikeja%20GRA%2C%20Lagos!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+          width="100%" height="100%" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Marcellina's Place venue map"></iframe>
       </div>
       <div class="venue-bottom-img-wrap">
         <img src="images/hall_terrace.png" alt="Venue exterior" class="venue-bottom-img" />
@@ -2355,41 +2303,35 @@
       <img src="images/love.png" alt="" class="gallery-hearts" aria-hidden="true" />
     </div>
 
-    <!-- Masonry-style photo grid — new composition per Figma -->
+    <!-- Masonry-style photo grid — 3 columns, 11 images -->
     <div class="gallery-grid">
-
-      <!-- Col 1 — unchanged, 5 images -->
-      <div class="gallery-col-1">
+      <!-- col 1 — unchanged -->
+      <div class="gallery-col">
         <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_1.png" alt="" class="gallery-img" /></div>
         <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_5.png" alt="" class="gallery-img" /></div>
         <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_8.png" alt="" class="gallery-img" /></div>
-        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_9.png" alt="" class="gallery-img" /></div>
         <div class="gallery-img-wrap" style="height:369px;"><img src="images/gallery_11.png" alt="" class="gallery-img" /></div>
       </div>
-
-      <!-- Col 2 top — 1 image -->
-      <div class="gallery-col-2-top">
-        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+      <!-- col 2 + col 3 combined area -->
+      <div style="grid-column: 2 / 4; display: flex; flex-direction: column; gap: 8px;">
+        <!-- Row 1: col2 portrait + col3 portrait side by side -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+          <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_9.png" alt="" class="gallery-img" /></div>
+        </div>
+        <!-- Row 2: wide landscape spanning full width of col 2+3 -->
+        <div class="gallery-img-wrap" style="height:340px; width:100%;"><img src="images/gallery_10.png" alt="" class="gallery-img" /></div>
+        <!-- Row 3: col2 portrait + col3 portrait + gap where script lives -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_2.png" alt="" class="gallery-img" /></div>
+          <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_7.png" alt="" class="gallery-img" /></div>
+        </div>
+        <!-- Row 4: single portrait in col3 position -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="height:300px;"></div><!-- empty spacer for col2 -->
+          <div class="gallery-img-wrap" style="height:300px;"><img src="images/gallery/gallery12.png" alt="" class="gallery-img" /></div>
+        </div>
       </div>
-
-      <!-- Col 3 top — 2 images above the wide span -->
-      <div class="gallery-col-3-top">
-        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_6.png" alt="" class="gallery-img" /></div>
-        <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_7.png" alt="" class="gallery-img" /></div>
-      </div>
-
-     
-
-      <!-- Col 2 bottom — 1 image -->
-      <div class="gallery-col-2-bottom">
-        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_2.png" alt="" class="gallery-img" /></div>
-      </div>
-
-      <!-- Col 3 bottom — 1 portrait -->
-      <div class="gallery-col-3-bottom">
-        <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_4.png" alt="" class="gallery-img" /></div>
-      </div>
-
     </div>
 
     <!-- Cursive overlay text at bottom -->
@@ -2448,12 +2390,12 @@
           <p class="footer-col-heading">CONTACT</p>
           <div class="footer-contact-group">
             <p class="footer-contact-label">General Enquiries</p>
-            <a href="mailto:theisiomaoj@gmail.com" class="footer-contact-link">theisiomaoj@gmail.com</a>
+            <p class="footer-contact-val"><a href="mailto:theisiomaoj@gmail.com" class="footer-contact-link">theisiomaoj@gmail.com</a></p>
           </div>
           <div class="footer-contact-group">
             <p class="footer-contact-label">Asoebi Orders</p>
-            <a href="https://wa.me/2347050308572?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link" target="_blank" rel="noopener">+234 705 030 8572</a>
-            <a href="https://wa.me/2349038309099?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link" target="_blank" rel="noopener">+234 903 830 9099</a>
+            <p class="footer-contact-val"><a href="https://wa.me/2347050308572?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link">+234 705 030 8572</a></p>
+            <p class="footer-contact-val"><a href="https://wa.me/2349038309099?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link">+234 903 830 9099</a></p>
           </div>
           <div class="footer-contact-group">
             <p class="footer-contact-label">Venue</p>
