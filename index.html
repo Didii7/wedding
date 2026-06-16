@@ -2024,10 +2024,20 @@
       }
       .gallery-carousel-dots {
         display: flex;
+        align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 10px;
         margin-top: 16px;
-        padding-bottom: 8px;
+      }
+      .gallery-carousel-btn {
+        background: none;
+        border: none;
+        color: var(--ruby);
+        font-size: 28px;
+        font-weight: 300;
+        cursor: pointer;
+        padding: 0 4px;
+        line-height: 1;
       }
       .gallery-carousel-dot {
         width: 6px;
@@ -2046,23 +2056,6 @@
         width: 18px;
         border-radius: 3px;
       }
-
-      .gallery-carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        background: none;
-        border: none;
-        color: var(--ruby);
-        font-size: 28px;
-        font-weight: 300;
-        cursor: pointer;
-        padding: 8px;
-        line-height: 1;
-      }
-      .gallery-carousel-btn--prev { left: 12px; }
-      .gallery-carousel-btn--next { right: 12px; }
 
       @media (min-width: 769px) {
       .gallery-carousel {
@@ -2514,51 +2507,53 @@
     <div class="gallery-grid">
       <!-- col 1 — unchanged -->
       <div class="gallery-col">
-        <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_1.png" alt="" class="gallery-img" /></div>
-        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_4.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:272px;"><img src="images/gallery_10.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_11.png" alt="" class="gallery-img" /></div>
         <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_7.png" alt="" class="gallery-img" /></div>
         <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_8.png" alt="" class="gallery-img" /></div>
-        <div class="gallery-img-wrap" style="height:369px;"><img src="images/gallery_10.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:369px;"><img src="images/gallery_1.png" alt="" class="gallery-img" /></div>
       </div>
       <!-- col 2 + col 3 combined area -->
       <div style="grid-column: 2 / 4; display: flex; flex-direction: column; gap: 8px;">
         <!-- Row 1: col2 portrait (gallery_3) + col3 portrait (gallery_2) side by side -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+          <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_9.png" alt="" class="gallery-img" /></div>
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_2.png" alt="" class="gallery-img" /></div>
-            <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_6.png" alt="" class="gallery-img" /></div>
+            <div class="gallery-img-wrap" style="height:261px;"><img src="images/gallery_5.png" alt="" class="gallery-img" /></div>
           </div>
         </div>
         <!-- Row 2: wide landscape spanning full width of col 2+3 -->
-        <div class="gallery-img-wrap" style="height:479px; width:100%;"><img src="images/gallery_5.png" alt="" class="gallery-img" /></div>
+        <div class="gallery-img-wrap" style="height:479px; width:100%;"><img src="images/gallery_6.png" alt="" class="gallery-img" /></div>
 
         <!-- Row 3: col2 portrait + col3 portrait -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_9.png" alt="" class="gallery-img" /></div>
-          <div class="gallery-img-wrap" style="height:723px;"><img src="images/gallery_11.png" alt="" class="gallery-img" /></div>
+          <div class="gallery-img-wrap" style="height:542px;"><img src="images/gallery_3.png" alt="" class="gallery-img" /></div>
+          <div class="gallery-img-wrap" style="height:723px;"><img src="images/gallery_4.png" alt="" class="gallery-img" /></div>
         </div>
       </div>
     </div>
 
     <!-- Mobile-only carousel -->
     <div class="gallery-carousel" id="galleryCarousel" aria-hidden="true">
-      <button class="gallery-carousel-btn gallery-carousel-btn--prev" id="galleryPrev">&#8249;</button>
-      <button class="gallery-carousel-btn gallery-carousel-btn--next" id="galleryNext">&#8250;</button>
       <div class="gallery-carousel-track" id="galleryTrack">
-        <div class="gallery-carousel-slide"><img src="images/gallery_1.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_10.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_2.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_4.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_11.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_6.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_4.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_5.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_7.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_9.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_8.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_10.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_11.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_1.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
       </div>
-      <div class="gallery-carousel-dots" id="galleryDots"></div>
+      <div class="gallery-carousel-dots" id="galleryDots">
+        <button class="gallery-carousel-btn gallery-carousel-btn--prev" id="galleryPrev">&#8249;</button>
+        <!-- dots render here via JS -->
+        <button class="gallery-carousel-btn gallery-carousel-btn--next" id="galleryNext">&#8250;</button>
+      </div>
     </div>
 
     <!-- Cursive overlay text at bottom -->
@@ -2865,7 +2860,7 @@
         d.className = 'gallery-carousel-dot' + (i === 0 ? ' active' : '');
         d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
         d.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(d);
+        dotsWrap.insertBefore(d, document.getElementById('galleryNext'));
       });
 
       function goTo(idx) {
