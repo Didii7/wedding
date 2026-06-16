@@ -1007,14 +1007,14 @@
     }
     .asoebi-coordinators {
       display: flex;
-      align-items: center;
-      gap: 14px;
+      flex-direction: column;
+      gap: 12px;
     }
     .asoebi-coordinator-name {
       font-family: var(--font-heading);
       font-size: 13px;
       font-weight: 700;
-      color: var(--ruby);
+      color: var(--neutral-dark);
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
@@ -1057,6 +1057,7 @@
       letter-spacing: 0.04em;
       font-weight: 700;
     }
+    .asoebi-account-num:hover { text-decoration: none;}
 
     /* "Orders close" footer line */
     .asoebi-deadline {
@@ -1701,7 +1702,7 @@
 
     .rsvp-contact-link {
       color: var(--light-tourmaline);
-      text-decoration: underline;
+      text-decoration: solid;
       transition: color 0.2s;
     }
     .rsvp-contact-link:hover { color: var(--tourmaline); }
@@ -1926,7 +1927,9 @@
       font-weight: 400;
       line-height: 17px;
       letter-spacing: 0.04em;
+      text-decoration: none;
     }
+    .registry-account-num:hover { text-decoration: none;}
     .registry-card--dark  .registry-account-num,
     .registry-card--dark  .registry-account-name  { color: var(--off-white); }
     .registry-card--light .registry-account-num,
@@ -2276,9 +2279,8 @@
         <div class="asoebi-order-left">
           <p class="asoebi-order-desc">To place your fabric order, kindly make payment to account details, and contact any of our Asoebi coordinators for delivery details:</p>
           <div class="asoebi-coordinators">
-            <p class="asoebi-coordinator-name">Divine &middot; +234 705 030 8572</p>
-            <span class="asoebi-coord-sep"></span>
-            <p class="asoebi-coordinator-name">Gift &middot; +234 903 830 9099</p>
+            <p class="asoebi-coordinator-name">Divine &middot;<a href="https://wa.me/2347050308572?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link">+234 705 030 8572</a></p>
+            <p class="asoebi-coordinator-name">Gift &middot;<a href="https://wa.me/2349038309099?text=Hello%2C%20I%20would%20like%20to%20order%20asoebi." class="footer-contact-link">+234 903 830 9099</a></p>
           </div>
         </div>
         <!-- Account details -->
@@ -2482,7 +2484,7 @@
           <p class="rsvp-desc">Please RSVP no later than <b style="color: #EECF65;">September 30.</b> Fill in the form below and let us know about any needs or questions.</p>
         </div>
 
-        <form class="rsvp-form" onsubmit="return false;">
+        <form class="rsvp-form" id="rsvpForm">
           <div class="rsvp-field">
             <label class="rsvp-label" for="rsvp-name">Full Name*</label>
             <input class="rsvp-input" type="text" id="rsvp-name" placeholder="Enter your name here" required />
@@ -2538,7 +2540,8 @@
             <textarea class="rsvp-textarea rsvp-textarea--inline" id="rsvp-message" placeholder=""></textarea>
           </div>
          
-          <button type="submit" class="btn-rsvp-submit">Submit RSVP</button>
+          <button type="submit" class="btn-rsvp-submit" id="rsvpSubmitBtn">Submit RSVP</button>
+          <div id="rsvpStatus" style="display:none; margin-top:18px; padding:14px 18px; border-radius:4px; font-family:var(--font-body); font-size:14px; line-height:1.6;"></div>
         </form>
       </div>
        <div class="rsvp-image-wrap">
@@ -2696,6 +2699,54 @@
 
     mobileMenu.addEventListener('click', e => {
       if (e.target === mobileMenu) closeMobileMenu();
+    });
+  </script>
+  <script>
+    /* ── RSVP Form Submission ── */
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLqOZvGnWrBtsSVPw_-JR_2idmd_IJ0LTFqnsDjTMUSrDel91oFQDj_MOad7_Q_Prg/exec";
+
+    const rsvpForm   = document.getElementById('rsvpForm');
+    const rsvpBtn    = document.getElementById('rsvpSubmitBtn');
+    const rsvpStatus = document.getElementById('rsvpStatus');
+
+    rsvpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      rsvpBtn.disabled    = true;
+      rsvpBtn.textContent = 'Sending…';
+      rsvpStatus.style.display = 'none';
+
+      const data = {
+        fullName:  document.getElementById('rsvp-name').value.trim(),
+        email:     document.getElementById('rsvp-email').value.trim(),
+        attending: rsvpForm.querySelector('[name="attending"]:checked')?.value || '',
+        guestOf:   rsvpForm.querySelector('[name="guest-of"]:checked')?.value || '',
+        whatsapp:  document.getElementById('rsvp-whatsapp').value.trim(),
+        message:   document.getElementById('rsvp-message').value.trim()
+      };
+
+      try {
+        const res    = await fetch(SCRIPT_URL, {
+          method:  'POST',
+          body:    JSON.stringify(data),
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        });
+        const result = await res.json();
+
+        if (result.status === 'success') {
+          rsvpStatus.textContent    = 'Thank you! Your RSVP has been received — check your email for a confirmation.';
+          rsvpStatus.style.cssText  = 'display:block; margin-top:18px; padding:14px 18px; border-radius:4px; font-family:var(--font-body); font-size:14px; line-height:1.6; background:rgba(238,207,101,0.12); color:#EECF65; border:1px solid rgba(238,207,101,0.35);';
+          rsvpForm.reset();
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
+      } catch (err) {
+        rsvpStatus.textContent   = 'Something went wrong. Please try again or reach out to us directly.';
+        rsvpStatus.style.cssText = 'display:block; margin-top:18px; padding:14px 18px; border-radius:4px; font-family:var(--font-body); font-size:14px; line-height:1.6; background:rgba(231,84,128,0.1); color:var(--light-tourmaline); border:1px solid rgba(231,84,128,0.3);';
+      } finally {
+        rsvpBtn.disabled    = false;
+        rsvpBtn.textContent = 'Submit RSVP';
+      }
     });
   </script>
 </body>
