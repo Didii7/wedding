@@ -286,7 +286,7 @@
       font-weight: 300;
       line-height: 1.85;
       color: var(--neutral-dark);
-      max-width: 620px;
+      max-width: 100%;
       margin-bottom: 20px;
     }
 
@@ -305,6 +305,10 @@
       background: var(--off-white);
       overflow: hidden;
       padding: 100px 80px;
+
+      @media (max-width: 768px) {
+        padding: 80px 24px;
+      }
     }
 
     .story-bg-pattern {
@@ -408,7 +412,6 @@
       .btn-gallery { align-self: center;}
       .story-body { justify-items: center; align-self: center; font-size: 14px;}
       .announcement-hashtag { font-size: 14px;}
-      
     }
     @media (max-width: 1000px) {
       .story-heading { letter-spacing: 0px;}
@@ -427,37 +430,8 @@
     .celebration-container {
       position: relative;
       z-index: 5;
-      max-width: 1240px;
       margin: 0 auto;
       padding: 100px 80px;
-    }
-
-    /* ── Header band ── */
-    .celebration-header {
-      position: relative;
-      z-index: 5;
-      margin-bottom: 60px;
-    }
-
-    .celebration-eyebrow {
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--nude);
-      margin-bottom: 16px;
-    }
-
-    .celebration-title {
-      font-family: var(--font-heading);
-      font-size: clamp(38px, 4.5vw, 62px);
-      font-weight: 700;
-      color: var(--light-tourmaline);
-      line-height: 1.0;
-      letter-spacing: 0.02em;
-      margin-bottom: 18px;
-      text-transform: none !important;
     }
 
     .celebration-date {
@@ -500,7 +474,7 @@
     .celebration-cards-row {
       display: flex;
       align-items: flex-end;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 80px;
     }
 
@@ -694,7 +668,6 @@
     }
     @media (max-width: 768px) {
       .celebration-container { padding: 56px 20px 60px; }
-      .celebration-header { margin-bottom: 32px; }
       .celebration-cards-row {
         flex-direction: column;
         align-items: stretch;
@@ -1091,7 +1064,7 @@
       font-size: 11px;
       font-weight: 400;
       letter-spacing: 0.08em;
-      color: var(--neutral-dark);
+      color: var(--deep-ruby);
       text-align: center;
       padding: 24px 0 32px;
       border-top: 0;
@@ -1703,6 +1676,7 @@
     .footer-credit-name {
       font-weight: 500;
       color: var(--tourmaline);
+      text-decoration: none;
     }
     .footer-top-link {
       font-family: var(--font-body);
@@ -1716,6 +1690,7 @@
     .footer-credit-studio {
       font-weight: 500;
       color: var(--ruby);
+      text-decoration: none;
     }
     .footer-contact-link {
       color: var(--deep-ruby);
@@ -1723,6 +1698,14 @@
       transition: color 0.2s;
     }
     .footer-contact-link:hover { color: var(--ruby); }
+
+    .rsvp-contact-link {
+      color: var(--light-tourmaline);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .rsvp-contact-link:hover { color: var(--tourmaline); }
+    
 
     @media (max-width: 900px) {
       #footer { padding: 48px 0 0; }
@@ -1913,7 +1896,7 @@
       text-align: right;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       z-index: 3;
     }
     .registry-account-label {
@@ -1922,6 +1905,7 @@
       font-weight: 500;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      margin-bottom: 8px;
     }
     .registry-card--dark  .registry-account-label { color: var(--off-white); }
     .registry-card--light .registry-account-label { color: var(--deep-ruby); }
@@ -2101,13 +2085,6 @@
     <!-- Shared container keeps header and cards on the same grid -->
     <div class="celebration-container">
 
-      <!-- Header text top-left -->
-      <div class="celebration-header">
-        <p class="celebration-eyebrow">WHAT TO EXPECT</p>
-        <h2 class="celebration-title">The Celebration</h2>
-        <p class="celebration-date">Saturday, 05 December, 2026</p>
-      </div>
-
       <!-- Cards row -->
       <div class="celebration-cards-row">
 
@@ -2127,6 +2104,7 @@
 
         <!-- RIGHT CARD — Schedule of Events -->
         <div class="details-card details-card--right">
+          <p class="celebration-date">Saturday, 05 December, 2026</p>
           <p class="details-card-eyebrow">SCHEDULE OF EVENTS</p>
 
           <div class="schedule-events">
@@ -2385,7 +2363,7 @@
         <div class="registry-account-box">
           <p class="registry-account-label">Account Details</p>
           <p class="registry-account-bank">ECOBANK</p>
-          <p class="registry-account-num">2070053444</p>
+          <p class="registry-account-num" style="font-weight: 700;">2070053444</p>
           <p class="registry-account-name">ISIOMA JOY OLAYANJU</p>
         </div>
       </div>
@@ -2432,7 +2410,7 @@
         <div class="registry-account-box">
           <p class="registry-account-label">Account Details</p>
           <p class="registry-account-bank">ECOBANK</p>
-          <p class="registry-account-num">2070049054</p>
+          <p class="registry-account-num" style="font-weight: 700;">2070049054</p>
           <p class="registry-account-name">ISIOMA JOY OLAYANJU</p>
         </div>
       </div>
@@ -2501,7 +2479,7 @@
         <div>
           <p class="rsvp-eyebrow">RSVP</p>
           <h2 class="rsvp-title">Let Us Know You're Coming</h2>
-          <p class="rsvp-desc">Please RSVP no later than September 30. Fill in the form below and let us know about any needs or questions.</p>
+          <p class="rsvp-desc">Please RSVP no later than <b style="color: #EECF65;">September 30.</b> Fill in the form below and let us know about any needs or questions.</p>
         </div>
 
         <form class="rsvp-form" onsubmit="return false;">
@@ -2571,9 +2549,8 @@
     <div class="rsvp-enquiries">
       <p class="rsvp-enquiries-text">For further enquiries, kindly contact any of the following numbers;</p>
       <div class="rsvp-coordinators">
-        <p class="rsvp-coordinator-name">Divine &middot; +234 705 030 8572</p>
-        <span class="rsvp-coord-sep"></span>
-        <p class="rsvp-coordinator-name">Gift &middot; +234 903 830 9099</p>
+        <p class="rsvp-coordinator-name">Divine &middot; <a href="https://wa.me/2347050308572?text=Hello%2C%20I%20would%20like%20to%20make%20an%20enquiry." class="rsvp-contact-link">+234 705 030 8572</a></p>
+        <p class="rsvp-coordinator-name">Gift &middot; <a href="https://wa.me/2347050308572?text=Hello%2C%20I%20would%20like%20to%20make%20an%20enquiry." class="rsvp-contact-link">+234 903 830 9099</a></p>
       </div>
     </div>
   </section>
@@ -2658,7 +2635,7 @@
 
     <!-- Bottom bar -->
     <div class="footer-bottom">
-      <p class="footer-credit">Designed with love by <span class="footer-credit-name">IsiomaOj</span> and built by <span class="footer-credit-studio">Invide Studio</span></p>
+      <p class="footer-credit">Designed with love by <span><a href="https://isiomaoj.framer.website/" class="footer-credit-name">Isioma Oj</a></span> and built by <span><a href="https://invidestudio.com/" class="footer-credit-studio">Invide Studio</a></span></p>
       <a href="#hero" class="footer-top-link">Back to top ↑</a>
     </div>
   </footer>
