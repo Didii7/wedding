@@ -2047,11 +2047,29 @@
         border-radius: 3px;
       }
 
+      .gallery-carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background: var(--light-tourmaline);
+        border-radius: 100%;
+        border: 0.5px solid rgba(249,246,242,0.4);
+        color: var(--ruby);
+        font-size: 28px;
+        font-weight: 300;
+        cursor: pointer;
+        padding: 8px;
+        line-height: 1;
+      }
+      .gallery-carousel-btn--prev { left: 12px; }
+      .gallery-carousel-btn--next { right: 12px; }
+
       @media (min-width: 769px) {
-  .gallery-carousel {
-    display: none !important;
-  }
-}
+      .gallery-carousel {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2526,6 +2544,8 @@
 
     <!-- Mobile-only carousel -->
     <div class="gallery-carousel" id="galleryCarousel" aria-hidden="true">
+      <button class="gallery-carousel-btn gallery-carousel-btn--prev" id="galleryPrev">&#8249;</button>
+      <button class="gallery-carousel-btn gallery-carousel-btn--next" id="galleryNext">&#8250;</button>
       <div class="gallery-carousel-track" id="galleryTrack">
         <div class="gallery-carousel-slide"><img src="images/gallery_1.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
@@ -2860,7 +2880,8 @@
       }
 
       function next() { goTo(current + 1); }
-
+      document.getElementById('galleryPrev').addEventListener('click', () => { goTo(current - 1); stopAuto(); startAuto(); });
+      document.getElementById('galleryNext').addEventListener('click', () => { goTo(current + 1); stopAuto(); startAuto(); });
       function startAuto() { timer = setInterval(next, 3000); }
       function stopAuto()  { clearInterval(timer); }
 
