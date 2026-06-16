@@ -267,7 +267,7 @@
     ═══════════════════════════════════════════════════════════════ */
     #announcement {
       background: rgba(255, 177, 194, 0.3);
-      padding: 80px 24px 88px;
+      padding: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -282,17 +282,18 @@
 
     .announcement-body {
       font-family: var(--font-body);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 300;
       line-height: 1.85;
       color: var(--neutral-dark);
+      width: 900px;
       max-width: 100%;
       margin-bottom: 20px;
     }
 
     .announcement-hashtag {
       font-family: var(--font-body);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 400;
       color: var(--ruby);
     }
@@ -724,7 +725,7 @@
       position: absolute;
       inset: 0;
       width: 100%;
-      height: 120%;
+      height: 100%;
       object-fit: cover;
       object-position: center center;
       pointer-events: none;
@@ -1049,14 +1050,14 @@
       font-size: 13px;
       color: var(--ruby);
       letter-spacing: 0.04em;
-      font-weight: 700;
+      font-weight: 500;
     }
     .asoebi-account-num, .asoebi-account-name {
       font-family: var(--font-heading);
       font-size: 13px;
       color: var(--ruby);
       letter-spacing: 0.04em;
-      font-weight: 700;
+      font-weight: 500;
       text-decoration: none;
     }
     .asoebi-account-num:hover { text-decoration: none;}
@@ -1439,6 +1440,7 @@
       color: var(--off-white);
       letter-spacing: 0.04em;
       white-space: nowrap;
+      text-decoration: none;
     }
     .rsvp-coord-sep {
       display: block;
@@ -1704,7 +1706,7 @@
 
     .rsvp-contact-link {
       color: var(--light-tourmaline);
-      text-decoration: solid;
+      text-decoration: none;
       transition: color 0.2s;
     }
     .rsvp-contact-link:hover { color: var(--tourmaline); }
@@ -1980,11 +1982,10 @@
       .asoebi-order-row   { flex-direction: column; gap: 24px; }
       .asoebi-account     { text-align: left; }
 
-      /* Gallery */
+      /* Gallery — mobile carousel */
       #gallery { padding-bottom: 60px; }
-      .gallery-grid { padding: 0 20px; }
-      .gallery-img-wrap { height: 180px !important; }
-      .gallery-script-wrap { margin: -40px auto 0; height: 180px; }
+      .gallery-grid { display: none; }
+      .gallery-script-wrap { margin: 0 auto; height: 180px; }
       .gallery-script { font-size: clamp(18px, 5vw, 28px); }
       .gallery-emoji { right: 20px; bottom: 10px; font-size: 28px; }
 
@@ -1995,6 +1996,63 @@
       #announcement { padding: 56px 20px 64px; }
     }
 
+    .gallery-carousel {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+        padding: 0 20px;
+      }
+
+      
+      .gallery-carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        gap: 12px;
+        will-change: transform;
+      }
+      .gallery-carousel-slide {
+        flex: 0 0 calc(100% - 40px);
+        height: 420px;
+        overflow: hidden;
+        border-radius: 2px;
+      }
+      .gallery-carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .gallery-carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding-bottom: 8px;
+      }
+      .gallery-carousel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--light-tourmaline);
+        opacity: 0.4;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: opacity 0.3s, background 0.3s;
+      }
+      .gallery-carousel-dot.active {
+        opacity: 1;
+        background: var(--ruby);
+        width: 18px;
+        border-radius: 3px;
+      }
+
+      @media (min-width: 769px) {
+  .gallery-carousel {
+    display: none !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -2048,7 +2106,7 @@
     <p class="announcement-body">
       We're getting married! And we're so excited to celebrate our day with you. On this
       page, you'll find everything you need to know — schedule, location, asoebi,
-      accommodation — and you can RSVP directly here. See you in December!
+      registry. You can RSVP directly here. See you in December!
     </p>
     <p class="announcement-hashtag">#MadeForMe26</p>
   </section>
@@ -2290,7 +2348,7 @@
           <p class="asoebi-account-label">ACCOUNT DETAILS</p>
           <div class="asoebi-account-detail">
             <p class="asoebi-account-bank">Ecobank</p>
-            <p class="asoebi-account-num">2070053444</p>
+            <p class="asoebi-account-num" style="font-weight: 700;">2070053444</p>
             <p class="asoebi-account-name">Isioma Joy Olayanju</p>
           </div>
         </div>
@@ -2467,6 +2525,24 @@
       </div>
     </div>
 
+    <!-- Mobile-only carousel -->
+    <div class="gallery-carousel" id="galleryCarousel" aria-hidden="true">
+      <div class="gallery-carousel-track" id="galleryTrack">
+        <div class="gallery-carousel-slide"><img src="images/gallery_1.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_2.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_4.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_6.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_5.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_7.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_9.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_8.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_10.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_11.png" alt="" /></div>
+      </div>
+      <div class="gallery-carousel-dots" id="galleryDots"></div>
+    </div>
+
     <!-- Cursive overlay text at bottom -->
     <div class="gallery-script-wrap" aria-hidden="true">
       <p class="gallery-script">These memories will last a lifetime</p>
@@ -2547,7 +2623,7 @@
         </form>
       </div>
        <div class="rsvp-image-wrap">
-        <img src="images/hall_terrace.png" alt="Marcellina's Place" />
+        <img src="images/rsvp.png" alt="Marcellina's Place" />
       </div>
     </div>
 
@@ -2750,6 +2826,62 @@
         rsvpBtn.textContent = 'Submit RSVP';
       }
     });
+  </script>
+  <script>
+    /* ── Mobile Gallery Carousel ── */
+    (function () {
+      const carousel = document.getElementById('galleryCarousel');
+      const track    = document.getElementById('galleryTrack');
+      const dotsWrap = document.getElementById('galleryDots');
+      if (!carousel || !track) return;
+
+      const slides = track.querySelectorAll('.gallery-carousel-slide');
+      const total  = slides.length;
+      let current  = 0;
+      let timer    = null;
+      let startX   = 0;
+
+      /* Build dots */
+      slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'gallery-carousel-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function goTo(idx) {
+        current = (idx + total) % total;
+        /* slide width = carousel width (full slide takes 100% minus padding offset) */
+        const slideW = slides[0].offsetWidth + 12; /* gap = 12px */
+        track.style.transform = 'translateX(-' + (current * slideW) + 'px)';
+        dotsWrap.querySelectorAll('.gallery-carousel-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      function next() { goTo(current + 1); }
+
+      function startAuto() { timer = setInterval(next, 3000); }
+      function stopAuto()  { clearInterval(timer); }
+
+      /* Touch swipe */
+      carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+      carousel.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? goTo(current + 1) : goTo(current - 1);
+        startAuto();
+      }, { passive: true });
+
+      /* Only run on mobile */
+      const mq = window.matchMedia('(max-width: 768px)');
+      function handleMQ(e) {
+        if (e.matches) { goTo(0); startAuto(); }
+        else { stopAuto(); }
+      }
+      mq.addEventListener('change', handleMQ);
+      handleMQ(mq);
+    })();
   </script>
 </body>
 </html>
