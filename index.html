@@ -489,6 +489,11 @@
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
+
+      
+    }
+    @media (max-width: 768px) {
+      .details-card--left { order: -1; }
     }
 
     /* LEFT CARD — fixed comfortable width for its content */
@@ -2803,7 +2808,7 @@
   </script>
   <script>
     /* ── RSVP Form Submission ── */
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDiVUg-8cY25SGkhHUxiFpPWgO82OTW0mjHU8HOnxGkR6zJrb5Vb2I7pNKV7MKURw9/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwIJgiWtNnfcdGEPfcUjH4hW4WXu8qvChZMQYaJCRh8Vg7NyPQ2TEXTQuZA_dtUu6E/exec";
 
     const rsvpForm   = document.getElementById('rsvpForm');
     const rsvpBtn    = document.getElementById('rsvpSubmitBtn');
@@ -2834,7 +2839,7 @@
         const result = await res.json();
 
         if (result.status === 'success') {
-          rsvpStatus.textContent    = 'Thank you! Your RSVP has been received — check your email for a confirmation.';
+          rsvpStatus.textContent = "You're on the list! A confirmation email has been sent. If it's not in your inbox, check your spam folder.";
           rsvpStatus.style.cssText  = 'display:block; margin-top:18px; padding:14px 18px; border-radius:4px; font-family:var(--font-body); font-size:14px; line-height:1.6; background:rgba(238,207,101,0.12); color:#EECF65; border:1px solid rgba(238,207,101,0.35);';
           rsvpForm.reset();
         } else {
