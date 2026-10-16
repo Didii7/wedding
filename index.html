@@ -2087,7 +2087,7 @@
         <li><a href="#details"   class="nav-link" data-section="details">Details</a></li>
         <li><a href="#registry"  class="nav-link" data-section="registry">Registry</a></li>
         <li><a href="#gallery"   class="nav-link" data-section="gallery">Gallery</a></li>
-        <li><a href="#rsvp"      class="nav-cta"  data-section="rsvp">RSVP</a></li>
+        <li style="display:none;"><a href="#rsvp"      class="nav-cta"  data-section="rsvp">RSVP</a></li>
       </ul>
       <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -2102,7 +2102,7 @@
     <a href="#details"   class="nav-link" data-section="details"   onclick="closeMobileMenu()">Details</a>
     <a href="#registry"  class="nav-link" data-section="registry"  onclick="closeMobileMenu()">Registry</a>
     <a href="#gallery"   class="nav-link" data-section="gallery"   onclick="closeMobileMenu()">Gallery</a>
-    <a href="#rsvp"      class="nav-cta"                           onclick="closeMobileMenu()">RSVP</a>
+    <a href="#rsvp"   style="display:none;"   class="nav-cta"                           onclick="closeMobileMenu()">RSVP</a>
   </div>
 
   <!-- HERO -->
@@ -2122,7 +2122,7 @@
     <p class="announcement-body">
       We're getting married! And we're so excited to celebrate our day with you. On this
       page, you'll find everything you need to know — schedule, location,
-      registry. You can RSVP directly here. See you in December!
+      registry. See you in December!
     </p>
     <p class="announcement-hashtag">#MadeForMe26</p>
   </section>
@@ -2182,7 +2182,7 @@
           <h3 class="details-card-title">For Our Guests</h3>
           <div class="details-card-divider"></div>
           <ul class="details-guest-list">
-            <li><span class="details-guest-icon">+</span><span class="details-guest-text">Please RSVP by October 30, 2026. Kindly note that seating is limited.</span></li>
+            <li style="display:none;"><span class="details-guest-icon">+</span><span class="details-guest-text">Please RSVP by October 30, 2026. Kindly note that seating is limited.</span></li>
             <li><span class="details-guest-icon">+</span><span class="details-guest-text">We love your little ones, but this will be an adult-only celebration. Take the chance for a night off.</span></li>
             <li><span class="details-guest-icon">+</span><span class="details-guest-text">Kindly keep mobile devices on silent during the religious ceremony.</span></li>
             <li><span class="details-guest-icon">+</span><span class="details-guest-text">A professional photographer is on duty — please refrain from blocking designated camera zones.</span></li>
@@ -2554,16 +2554,16 @@
     <div class="gallery-carousel" id="galleryCarousel" aria-hidden="true">
       <div class="gallery-carousel-track" id="galleryTrack">
         <div class="gallery-carousel-slide"><img src="images/gallery_11.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_9.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_2.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_5.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_6.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_4.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_10.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_7.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_9.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_8.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_5.png" alt="" /></div>
         <div class="gallery-carousel-slide"><img src="images/gallery_1.png" alt="" /></div>
-        <div class="gallery-carousel-slide"><img src="images/gallery_3.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_8.png" alt="" /></div>
+        <div class="gallery-carousel-slide"><img src="images/gallery_4.png" alt="" /></div>
       </div>
       <div class="gallery-carousel-dots" id="galleryDots">
         <button class="gallery-carousel-btn gallery-carousel-btn--prev" id="galleryPrev">&#8249;</button>
@@ -2582,7 +2582,7 @@
   </section>
 
   <!-- RSVP -->
-  <section id="rsvp" data-theme="dark" data-nav-section="rsvp">
+  <section id="rsvp" data-theme="dark" data-nav-section="rsvp" style="display:none;">
     <div class="rsvp-inner">
       <div class="rsvp-content">
         <div>
@@ -2722,7 +2722,7 @@
         </div>
 
         <!-- RSVP reminder column -->
-        <div class="footer-col">
+        <div class="footer-col" style="display:none;">
           <p class="footer-col-heading">RSVP REMINDER</p>
           <p class="footer-rsvp-deadline">Please respond by<br>October 30, 2026</p>
           <p class="footer-rsvp-msg">We look forward to sharing this precious day with you and those you hold dear.</p>
